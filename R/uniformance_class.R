@@ -54,10 +54,17 @@ Uniformance <- R6Class("Uniformance", public = list(
   
   #' @description
   #' Set start time for data
+  #' Defaults to Now-1hour
   #' @param time 'DD/MM/YYYY HH:mm:ss' format
   Set_StartTime = function(time){
     #Add Function to convert to datetime
-    clrCall(self$historianclass, "set_StartTime", time)
+    tryCatch(clrCall(self$historianclass, "set_StartTime", time), 
+             error=function(cond){
+               message("Make sure date is in format DD/MM/YYYY HH:mm:ss and to provided as a string")
+               message("Here is the original error:")
+               message(conda)
+             }
+    )
   },
   #' @description
   #' Returns current end time for data
@@ -66,12 +73,18 @@ Uniformance <- R6Class("Uniformance", public = list(
   },
   #' @description
   #' Set end time for data
+  #' Defaults to Now
   #' @param time 'DD/MM/YYYY HH:mm:ss' format
   Set_EndTime = function(){
     #Add Function to convert to datetime
-    clrCall(self$historianclass, "set_EndTime", time)
+    tryCatch(clrCall(self$historianclass, "set_EndTime", time), 
+             error=function(cond){
+               message("Make sure date is in format DD/MM/YYYY HH:mm:ss and to provided as a string")
+               message("Here is the original error:")
+               message(cond)
+             }
+    )
   },
-  
   
   #' @description
   #' Returns current Sample Frequency for data

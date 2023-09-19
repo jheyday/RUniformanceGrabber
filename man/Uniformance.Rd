@@ -61,6 +61,7 @@ Returns current Start time for data
 \if{latex}{\out{\hypertarget{method-Uniformance-Set_StartTime}{}}}
 \subsection{Method \code{Set_StartTime()}}{
 Set start time for data
+Defaults to Now-1hour
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Uniformance$Set_StartTime(time)}\if{html}{\out{</div>}}
 }
@@ -88,6 +89,7 @@ Returns current end time for data
 \if{latex}{\out{\hypertarget{method-Uniformance-Set_EndTime}{}}}
 \subsection{Method \code{Set_EndTime()}}{
 Set end time for data
+Defaults to Now
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Uniformance$Set_EndTime()}\if{html}{\out{</div>}}
 }
