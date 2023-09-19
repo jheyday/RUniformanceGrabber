@@ -1,6 +1,9 @@
 # RUniformanceGrabber
 A Package for R that communicates with a Honeywell PHD Server via the rClr and phdapinet.dll
 # Installation
+
+Requires a 32-bit install of R, [version 4.1.3](https://cran.r-project.org/bin/windows/base/old/4.1.3/) was the last released version supporting 32-bit.
+
 Install devtools and rClr.
 Devtools can be installed from CRAN, rClr should be installed as a seperate zip. 
 
