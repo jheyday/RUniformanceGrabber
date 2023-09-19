@@ -36,13 +36,17 @@ example <- Uniformance$new("MALSHW1")
 \subsection{Method \code{new()}}{
 Initalises instiances of the uniformance class
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Uniformance$new(host = NA)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Uniformance$new(host = NA, UserName = "", Password = "")}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{host}}{This is the server where the tags you are interested in are, typically 'MALSHW1' or 'MBTSHW1'}
+
+\item{\code{UserName}}{Optional Parameter for 200 PHD Systems}
+
+\item{\code{Password}}{Optional Parameter for 200 PHD Systems}
 }
 \if{html}{\out{</div>}}
 }

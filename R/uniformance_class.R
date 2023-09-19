@@ -12,6 +12,8 @@ library(XML)
 #' 
 #' 
 #' @param host This is the server where the tags you are interested in are, typically 'MALSHW1' or 'MBTSHW1'
+#' @param UserName Optional Parameter for 200 PHD Systems 
+#' @param Password Optional Parameter for 200 PHD Systems 
 #' @examples
 #' example <- Uniformance$new("MALSHW1")
 #' @import R6
@@ -19,15 +21,20 @@ library(XML)
 #' @export 
 Uniformance <- R6Class("Uniformance", public = list(
   host= NULL,
+  UserName= NULL,
+  Password= NULL,
   phdclass=NULL,
   historianclass=NULL,
   tags=NULL,
   tag=NULL,
   #' @description
   #' Initalises instiances of the uniformance class
-  initialize = function(host = NA){
+  #' 
+  initialize = function(host = NA, UserName='', Password=''){
     
     self$host <- host
+    self$UserName <- UserName
+    self$Password <- Password
     
     clrLoadAssembly('C:\\Program Files (x86)\\Common Files\\Honeywell\\Uniformance\\phdapinet.dll')
     self$phdclass <- clrNew("Uniformance.PHD.PHDServer")
@@ -36,6 +43,7 @@ Uniformance <- R6Class("Uniformance", public = list(
     self$tag <- clrNew("Uniformance.PHD.Tag")
     
     clrCall(self$phdclass, "set_HostName", self$host)
+    clrCall(self$phdclass, "set_Username", '')
     clrCall(self$phdclass, "set_Password", '')
     clrCall(self$historianclass, "set_DefaultServer", self$phdclass)
   },
