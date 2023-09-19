@@ -62,7 +62,7 @@ Uniformance <- R6Class("Uniformance", public = list(
              error=function(cond){
                message("Make sure date is in format DD/MM/YYYY HH:mm:ss and to provided as a string")
                message("Here is the original error:")
-               message(conda)
+               message(cond)
              }
     )
   },
