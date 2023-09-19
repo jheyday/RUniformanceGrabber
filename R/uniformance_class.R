@@ -1,7 +1,7 @@
 library(rClr)
 library(R6)
-library("XML")
-library("methods")
+library(XML)
+library(methods)
 
 #' Uniformance Class
 #' @description
