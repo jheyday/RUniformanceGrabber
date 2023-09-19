@@ -43,7 +43,7 @@ Uniformance <- R6Class("Uniformance", public = list(
     self$tag <- clrNew("Uniformance.PHD.Tag")
     
     clrCall(self$phdclass, "set_HostName", self$host)
-    clrCall(self$phdclass, "set_Username", '')
+    clrCall(self$phdclass, "set_UserName", '')
     clrCall(self$phdclass, "set_Password", '')
     clrCall(self$historianclass, "set_DefaultServer", self$phdclass)
   },
