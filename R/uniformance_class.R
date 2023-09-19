@@ -1,7 +1,4 @@
-library(rClr)
 library(R6)
-library(XML)
-library(methods)
 
 #' Uniformance Class
 #' @description
@@ -24,6 +21,8 @@ Uniformance <- R6Class("Uniformance", public = list(
   #' @description
   #' Initalises instiances of the uniformance class
   initialize = function(host = NA){
+    library(rClr)
+    library(XML)
     self$host <- host
     
     clrLoadAssembly('C:\\Program Files (x86)\\Common Files\\Honeywell\\Uniformance\\phdapinet.dll')
