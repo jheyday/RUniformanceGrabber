@@ -75,7 +75,7 @@ Uniformance <- R6Class("Uniformance", public = list(
   #' Set end time for data
   #' Defaults to Now
   #' @param time 'DD/MM/YYYY HH:mm:ss' format
-  Set_EndTime = function(){
+  Set_EndTime = function(time){
     #Add Function to convert to datetime
     tryCatch(clrCall(self$historianclass, "set_EndTime", time), 
              error=function(cond){

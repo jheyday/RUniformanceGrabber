@@ -91,7 +91,7 @@ Returns current end time for data
 Set end time for data
 Defaults to Now
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Uniformance$Set_EndTime()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Uniformance$Set_EndTime(time)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
