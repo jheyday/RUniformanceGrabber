@@ -1,4 +1,7 @@
 library(R6)
+library(rClr)
+library(XML)
+
 
 #' Uniformance Class
 #' @description
@@ -11,7 +14,9 @@ library(R6)
 #' @param host This is the server where the tags you are interested in are, typically 'MALSHW1' or 'MBTSHW1'
 #' @examples
 #' example <- Uniformance$new("MALSHW1")
-#' @export
+#' @import R6
+#' @import rClr
+#' @export 
 Uniformance <- R6Class("Uniformance", public = list(
   host= NULL,
   phdclass=NULL,
@@ -21,8 +26,7 @@ Uniformance <- R6Class("Uniformance", public = list(
   #' @description
   #' Initalises instiances of the uniformance class
   initialize = function(host = NA){
-    library(rClr)
-    library(XML)
+    
     self$host <- host
     
     clrLoadAssembly('C:\\Program Files (x86)\\Common Files\\Honeywell\\Uniformance\\phdapinet.dll')
@@ -135,7 +139,7 @@ Uniformance <- R6Class("Uniformance", public = list(
   get_results = function(){
     fetchrow <- clrCall(self$historianclass,"FetchRowData", self$tags)
     xmldata <- clrCall(fetchrow, "GetXml")
-    dataframe <- xmlToDataFrame((xml <- xmlParse(xmldata)))
+    dataframe <- XML::xmlToDataFrame((xml <- XML::xmlParse(xmldata)))
     dataframe
   }
 )
