@@ -26,6 +26,7 @@ example <- Uniformance$new("MALSHW1")
 \item \href{#method-Uniformance-list_tags}{\code{Uniformance$list_tags()}}
 \item \href{#method-Uniformance-remove_all_tags}{\code{Uniformance$remove_all_tags()}}
 \item \href{#method-Uniformance-get_results}{\code{Uniformance$get_results()}}
+\item \href{#method-Uniformance-get_results_split}{\code{Uniformance$get_results_split()}}
 \item \href{#method-Uniformance-clone}{\code{Uniformance$clone()}}
 }
 }
@@ -170,10 +171,21 @@ Removes all tags
 \if{html}{\out{<a id="method-Uniformance-get_results"></a>}}
 \if{latex}{\out{\hypertarget{method-Uniformance-get_results}{}}}
 \subsection{Method \code{get_results()}}{
-Uses dataframe of all data using currently set parameters and tags
+Returns a dataframe of all data using currently set parameters and tags
 This method requires that tags have been added via add_tag()
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Uniformance$get_results()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Uniformance-get_results_split"></a>}}
+\if{latex}{\out{\hypertarget{method-Uniformance-get_results_split}{}}}
+\subsection{Method \code{get_results_split()}}{
+Returns a dataframe of all data using currently set parameters and tags
+This method requires that tags have been added via add_tag()
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Uniformance$get_results_split()}\if{html}{\out{</div>}}
 }
 
 }

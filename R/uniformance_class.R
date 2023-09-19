@@ -60,7 +60,7 @@ Uniformance <- R6Class("Uniformance", public = list(
     #Add Function to convert to datetime
     tryCatch(clrCall(self$historianclass, "set_StartTime", time), 
              error=function(cond){
-               message("Make sure date is in format DD/MM/YYYY HH:mm:ss and to provided as a string")
+               message("Make sure date is in format DD/MM/YYYY HH:mm:ss and is provided as a string")
                message("Here is the original error:")
                message(cond)
              }
@@ -79,7 +79,7 @@ Uniformance <- R6Class("Uniformance", public = list(
     #Add Function to convert to datetime
     tryCatch(clrCall(self$historianclass, "set_EndTime", time), 
              error=function(cond){
-               message("Make sure date is in format DD/MM/YYYY HH:mm:ss and to provided as a string")
+               message("Make sure date is in format DD/MM/YYYY HH:mm:ss and is provided as a string")
                message("Here is the original error:")
                message(cond)
              }
@@ -147,13 +147,29 @@ Uniformance <- R6Class("Uniformance", public = list(
   # Result Functions
   ##############################################################################
   #' @description
-  #' Uses dataframe of all data using currently set parameters and tags
+  #' Returns a dataframe of all data using currently set parameters and tags
   #' This method requires that tags have been added via add_tag()
   get_results = function(){
     fetchrow <- clrCall(self$historianclass,"FetchRowData", self$tags)
     xmldata <- clrCall(fetchrow, "GetXml")
     dataframe <- XML::xmlToDataFrame((xml <- XML::xmlParse(xmldata)))
     dataframe
+  },
+  #' @description
+  #' Returns a dataframe of all data using currently set parameters and tags
+  #' This method requires that tags have been added via add_tag()
+  get_results_split = function(){
+    fetchrow <- clrCall(self$historianclass,"FetchRowData", self$tags)
+    xmldata <- clrCall(fetchrow, "GetXml")
+    dataframe <- XML::xmlToDataFrame((xml <- XML::xmlParse(xmldata)))
+    if ("TagName" %in% colnames(dataframe)) {
+      # Use the split function to split the dataframe into a list based on 'TagName'
+      split_data <- split(dataframe, dataframe$TagName)
+      return(split_data)
+    } else {
+      stop("The 'TagName' column does not exist in the dataframe.")
+    }
+    
   }
 )
 )
