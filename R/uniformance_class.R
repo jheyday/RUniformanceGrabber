@@ -21,16 +21,22 @@ library(R6)
 #' @import XML
 #' @import processx
 #' @export 
-Uniformance <- R6Class("Uniformance", public = list(
+Uniformance <- R6Class("Uniformance",
+private = list(
+  m_Starttime =NULL,
+  m_Endtime = NULL,
+  m_tags = list(),
+  m_phdexe = NULL
+  
+),
+public = list(
   host= NULL,
   port= NULL,
   UserName= NULL,
   Password= NULL,
-  tag=list(),
-  Starttime= NULL,
-  Endtime= NULL,
+  
   #' @description
-  #' Initalises instiances of the uniformance class
+  #' Initialises instances of the uniformance class
   #' 
   initialize = function(host = NA, UserName='', Password='', Port=3000, Starttime="NOW-1D", Endtime="NOW"){
     
@@ -38,35 +44,57 @@ Uniformance <- R6Class("Uniformance", public = list(
     self$UserName <- UserName
     self$Password <- Password
     self$Port <- Port
-    self$Starttime <- Starttime
-    self$Endtime <- Endtime
+    self$m_Starttime <- Starttime
+    self$m_Endtime <- Endtime
+    package_location <- gsub("/","//",system.file(package = "UniformanceGrabber"))
+    self$m_phdexe = paste(package_location, "//bin//phdapinetinterface.exe",sep="")
+    
+  },
+  #' @description
+  #' Checks if tag exists on server and adds to a list of tags that will be grabbed by get_data
+  #' @param tag_name 'A.RL_AI7361.BATCH'
+
+  add_tag = function(tag_name){
+    
+    tagcheck <- run(self$m_phdexe, c("checktag",
+                                              paste("-h", self$Hostname, sep=""),
+                                              paste("-P", self$Port, sep=""),
+                                              paste("-u", self$Username, sep=""),
+                                              paste("-p", self$Password, sep=""),
+                                              paste("-t", tag_name, sep="")
+    ))
+    if (grepl("found\r\n$", tagcheck)) {
+      self$m_tags <- append(self$m_tags, tag_name)
+      print(paste(tag_name, "added to taglist"))
+      
+    } 
+    else if (grepl("system\r\n$", tagcheck)) {
+      print("Tagname was not found, check tagname and try again")
+    } 
+    else {
+      print("Connection to PHD server failed. Check server details")
+    }
   },
   #' @description
   #' Returns a dataframe of all data using currently set parameters and tags
   #' This method requires that tags have been added via add_tag()
   get_results = function(){
-    
     if (length(tag) == 0) {
       stop("Tag list is empty")
     }
-    
     for (element in tag) {
-      xmloutput <- capture.output(r1 <- run(system, c("getdata",
-                                                      paste("-h ", self$Hostname),
-                                                      paste("-P ", self$Port),
-                                                      paste("-u ", self$Username),
-                                                      paste("-p ", self$Password),
-                                                      paste("-t ", element),
-                                                      paste("-s ", self$Starttime),
-                                                      paste("-e", self$Endtime)
+      xmloutput <- capture.output(r1 <- run(self$m_phdexe, c("getdata",
+                                                      paste("-h", self$Hostname, sep=""),
+                                                      paste("-P", self$Port, sep=""),
+                                                      paste("-u", self$Username, sep=""),
+                                                      paste("-p", self$Password, sep=""),
+                                                      paste("-t", element, sep=""),
+                                                      paste("-s", self$m_Starttime, sep=""),
+                                                      paste("-e", self$m_Endtime, sep="")
                                                       )))
       dataframe.append(XML::xmlToDataFrame((xml <- XML::xmlParse(xmloutput))))
     }
-  },
-  #' @description
-  #' test function
-  print_location = function(){
-    system.file(package = "UniformanceGrabber",lib.loc = NULL)
+    return(dataframe)
   }
 )
 )
