@@ -62,7 +62,11 @@ Uniformance <- R6Class("Uniformance", public = list(
                                                       )))
       dataframe.append(XML::xmlToDataFrame((xml <- XML::xmlParse(xmloutput))))
     }
+  },
+  #' @description
+  #' test function
+  print_location = function(){
+    system.file(package = "UniformanceGrabber",lib.loc = NULL)
   }
 )
 )
-system.file(package = "UniformanceGrabber",lib.loc = NULL)
