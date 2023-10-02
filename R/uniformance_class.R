@@ -30,18 +30,18 @@ private = list(
   
 ),
 public = list(
-  host= NULL,
-  port= NULL,
-  UserName= NULL,
+  Hostname= NULL,
+  Port= NULL,
+  Username= NULL,
   Password= NULL,
   
   #' @description
   #' Initialises instances of the uniformance class
   #' 
-  initialize = function(host = NA, UserName='', Password='', Port=3000, Starttime="NOW-1D", Endtime="NOW"){
+  initialize = function(hostname = NA, UserName='', Password='', Port=3000, Starttime="NOW-1D", Endtime="NOW"){
     
-    self$host <- host
-    self$UserName <- UserName
+    self$Hostname <- hostname
+    self$Username <- UserName
     self$Password <- Password
     self$Port <- Port
     self$m_Starttime <- Starttime
