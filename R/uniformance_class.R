@@ -50,6 +50,7 @@ public = list(
     private$m_samplefrequency <- 0
     package_location <- gsub("/","//",system.file(package = 'UniformanceGrabber'))
     private$m_phdexe <- paste(package_location, '//bin//phdapinetinterface.exe',sep="")
+    private$m_phdexe <- "C:\\Users\\jheywoo\\Programming Projects\\R\\UniformanceGrabberPackage - Copy\\inst\\bin\\phdapinetinterface.exe"
     
   },
   
@@ -61,15 +62,15 @@ public = list(
   #' @param tag_name 'A.RL_AI7361.BATCH'
   add_tag = function(tag_name){
     if (tag_name %in% private$m_tags) {
-      return(paste(tag_name, "is already in the taglist"))
+      print(paste(tag_name, "is already in the taglist"))
+      return(1)
     }
-    
     commands <- c("checktag",
-                  paste("-h", self$Hostname, sep=" "),
-                  paste("-P", self$Port, sep=" "),
-                  paste("-u", self$Username, sep=" "),
-                  paste("-p", self$Password, sep=" "),
-                  paste("-t", tag_name, sep=" ")
+                  paste("-h", self$Hostname, sep=""),
+                  paste("-P", self$Port, sep=""),
+                  paste("-u", self$Username, sep=""),
+                  paste("-p", self$Password, sep=""),
+                  paste("-t", tag_name, sep="")
                   )
     tagcheck <- run(private$m_phdexe, commands)
     #tagcheck <- run(exe, commands)
@@ -176,7 +177,8 @@ public = list(
 )
 
 
-# <- Uniformance$new('MALSHW1')
+#exe
+#u <- Uniformance$new('MALSHW1')
 #u$add_tag('A.RL_AI7361.BATCH')
 #u$add_tag('A.RL_AI7361.GRADE')
 #u$set_startime('NOW-3W')
@@ -184,5 +186,3 @@ public = list(
 #u$startime()
 #sand <- u$get_results()
 #print(sand)
-#sand
-#exe
