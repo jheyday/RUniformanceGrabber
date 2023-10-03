@@ -60,12 +60,16 @@ public = list(
   #' Checks if tag exists on server and adds to a list of tags that will be grabbed by get_data
   #' @param tag_name 'A.RL_AI7361.BATCH'
   add_tag = function(tag_name){
+    if (tag_name %in% private$m_tags) {
+      return(paste(tag_name, "is already in the taglist"))
+    }
+    
     commands <- c("checktag",
-                  paste("-h", self$Hostname, sep=""),
-                  paste("-P", self$Port, sep=""),
-                  paste("-u", self$Username, sep=""),
-                  paste("-p", self$Password, sep=""),
-                  paste("-t", tag_name, sep="")
+                  paste("-h", self$Hostname, sep=" "),
+                  paste("-P", self$Port, sep=" "),
+                  paste("-u", self$Username, sep=" "),
+                  paste("-p", self$Password, sep=" "),
+                  paste("-t", tag_name, sep=" ")
                   )
     tagcheck <- run(private$m_phdexe, commands)
     #tagcheck <- run(exe, commands)
@@ -123,40 +127,31 @@ public = list(
   # Result Functions
   ##############################################################################
   
-  
   #' @description
   #' Returns a list of dataframes with current tags and parameters. 
   #' 
   #' This method requires that tags have been added via add_tag().
   get_results = function(){
+    print(private$m_tags)
     if (length(private$m_tags) == 0) {
       stop("Tag list is empty")
     }
     dataframe <- list()
     for (element in private$m_tags) {
-      #xmloutput <- run(exe, c("getdata",
-      #                                                       paste("-h", self$Hostname, sep=""),
-      #                                                       paste("-P", self$Port, sep=""),
-      #                                                       paste("-u", self$Username, sep=""),
-      #                                                       paste("-p", self$Password, sep=""),
-      #                                                       paste("-t", element, sep=""),
-      #                                                       paste("-s", private$m_Starttime, sep=""),
-      #                                                       paste("-e", private$m_Endtime, sep=""),
-      #                                                       paste("-f", private$m_samplefrequency, sep="")
-      #))
-
+      print(element)
       commands <- c("getdata",
-                    paste("-h", self$Hostname, sep=""),
-                    paste("-P", self$Port, sep=""),
-                    paste("-p", self$Password, sep=""),
-                    paste("-t", element, sep=""),
-                    paste("-u", self$Username, sep=""),
-                    paste("-s", private$m_Starttime, sep=""),
-                    paste("-e", private$m_Endtime, sep=""),
-                    paste("-f", private$m_samplefrequency, sep="")
+                    paste("-h", self$Hostname, sep=" "),
+                    paste("-P", self$Port, sep=" "),
+                    paste("-p", self$Password, sep=" "),
+                    paste("-t", element, sep=" "),
+                    paste("-u", self$Username, sep=" "),
+                    paste("-s", private$m_Starttime, sep=" "),
+                    paste("-e", private$m_Endtime, sep=" "),
+                    paste("-f", private$m_samplefrequency, sep=" ")
       )
       
       xmloutput <- run(private$m_phdexe, commands)
+      #xmloutput <- run(exe, commands)
       
       rawdata   <-xml2::read_xml(xmloutput$stdout)
       tagname   <-c(xml_text(xml_find_all(rawdata, xpath = "//TagName")))
@@ -181,14 +176,13 @@ public = list(
 )
 
 
-#u <- Uniformance$new('MALSHW1')
+# <- Uniformance$new('MALSHW1')
 #u$add_tag('A.RL_AI7361.BATCH')
 #u$add_tag('A.RL_AI7361.GRADE')
 #u$set_startime('NOW-3W')
 #u$set_endtime('NOW-1D')
 #u$startime()
-#u$samplefrequency()
 #sand <- u$get_results()
 #print(sand)
 #sand
-
+#exe
