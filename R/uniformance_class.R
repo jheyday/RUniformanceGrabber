@@ -50,7 +50,7 @@ public = list(
     private$m_samplefrequency <- 0
     package_location <- gsub("/","//",system.file(package = 'UniformanceGrabber'))
     private$m_phdexe <- paste(package_location, '//bin//phdapinetinterface.exe',sep="")
-    private$m_phdexe <- "C:\\Users\\jheywoo\\Programming Projects\\R\\UniformanceGrabberPackage - Copy\\inst\\bin\\phdapinetinterface.exe"
+    #private$m_phdexe <- "C:\\Users\\jheywoo\\Programming Projects\\R\\UniformanceGrabberPackage - Copy\\inst\\bin\\phdapinetinterface.exe"
     
   },
   
@@ -73,7 +73,6 @@ public = list(
                   paste("-t", tag_name, sep="")
                   )
     tagcheck <- run(private$m_phdexe, commands)
-    #tagcheck <- run(exe, commands)
     if (endsWith(tagcheck$stdout, "found\r\n")) {
       private$m_tags <- append(private$m_tags, tag_name)
       print(paste(tag_name, "added to taglist"))
@@ -84,6 +83,23 @@ public = list(
     } else {
       print("Connection to PHD server failed. Check server details")
       return(1)
+    }
+  },
+  #' @description
+  #' Clears taglist
+  #' @param tag_name
+  clear_taglist = function(){
+    m_tags = list()
+  },
+  #' @description
+  #' Remove a given tag
+  #' @param tag_name 
+  remove_tag = function(tag_name){
+    if (tag_name %in% private$m_tags) {
+      private$m_tags <- private$m_tags[private$m_tags != tag_name]
+      print(paste(tag_name, "was removed from the taglist.\n"))
+    } else {
+      print(paste(tag_name, "was not found in the taglist.\n"))
     }
   },
   #' @description
@@ -180,6 +196,7 @@ public = list(
 #exe
 #u <- Uniformance$new('MALSHW1')
 #u$add_tag('A.RL_AI7361.BATCH')
+#u$remo
 #u$add_tag('A.RL_AI7361.GRADE')
 #u$set_startime('NOW-3W')
 #u$set_endtime('NOW-1D')

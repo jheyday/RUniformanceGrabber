@@ -18,6 +18,8 @@ example <- Uniformance$new("MALSHW1")
 \itemize{
 \item \href{#method-Uniformance-new}{\code{Uniformance$new()}}
 \item \href{#method-Uniformance-add_tag}{\code{Uniformance$add_tag()}}
+\item \href{#method-Uniformance-clear_taglist}{\code{Uniformance$clear_taglist()}}
+\item \href{#method-Uniformance-remove_tag}{\code{Uniformance$remove_tag()}}
 \item \href{#method-Uniformance-set_startime}{\code{Uniformance$set_startime()}}
 \item \href{#method-Uniformance-set_endtime}{\code{Uniformance$set_endtime()}}
 \item \href{#method-Uniformance-set_samplefrequency}{\code{Uniformance$set_samplefrequency()}}
@@ -51,6 +53,33 @@ Checks if tag exists on server and adds to a list of tags that will be grabbed b
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{tag_name}}{'A.RL_AI7361.BATCH'}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Uniformance-clear_taglist"></a>}}
+\if{latex}{\out{\hypertarget{method-Uniformance-clear_taglist}{}}}
+\subsection{Method \code{clear_taglist()}}{
+Clears taglist
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Uniformance$clear_taglist()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Uniformance-remove_tag"></a>}}
+\if{latex}{\out{\hypertarget{method-Uniformance-remove_tag}{}}}
+\subsection{Method \code{remove_tag()}}{
+Remove a given tag
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Uniformance$remove_tag(tag_name)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{tag_name}}{}
 }
 \if{html}{\out{</div>}}
 }
