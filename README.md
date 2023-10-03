@@ -56,7 +56,6 @@ u$set_startime('NOW-3W')
 # if the format isn't convertible
 u$set_endtime('NOW-1D')
 
-
 #These values can be checked with
 u$startime
 u$endtime
