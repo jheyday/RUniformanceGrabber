@@ -11,8 +11,8 @@ library(R6)
 #' Methods can be accessed for a class by creating an instance of the class and then using the following format "instance"$"Method"
 #' 
 #' 
-#' @param Hostname This is the server where the tags you are interested in are, typically 'MALSHW1' or 'MBTSHW1'
-#' @param Username Optional Parameter for 200 PHD Systems 
+#' @param host This is the server where the tags you are interested in are, typically 'MALSHW1' or 'MBTSHW1'
+#' @param UserName Optional Parameter for 200 PHD Systems 
 #' @param Password Optional Parameter for 200 PHD Systems
 #' @param Port Default port is 3000
 #' 
@@ -115,7 +115,7 @@ public = list(
   #' @description
   #' See current Sample Frequency 
   #' @param samplefrequency
-  samplefrequency = function(samplefrequency){
+  samplefrequency = function(){
     return(private$m_samplefrequency)
   },
   

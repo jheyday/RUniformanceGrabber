@@ -3,5 +3,4 @@
 export(Uniformance)
 import(R6)
 import(processx)
-import(rClr)
 import(xml2)
