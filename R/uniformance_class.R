@@ -39,15 +39,15 @@ public = list(
   #' @description
   #' Initialises instances of the uniformance class
   #' 
-  initialize = function(hostname = NA, Username='', Password='', Port=3000, starttime='NOW-1D', m_Endtime='NOW', m_samplefrequency=0){
+  initialize = function(hostname = NA, username='', password='', port=3000, starttime='NOW-1D', endtime='NOW', samplefrequency=0){
     
     self$Hostname             <- hostname
-    self$Username             <- Username
-    self$Password             <- Password
-    self$Port                 <- Port
+    self$Username             <- username
+    self$Password             <- password
+    self$Port                 <- port
     private$m_Starttime       <- starttime
-    private$m_Endtime         <- m_Endtime
-    private$m_samplefrequency <- m_samplefrequency
+    private$m_Endtime         <- endtime
+    private$m_samplefrequency <- samplefrequency
     package_location <- gsub("/","//",system.file(package = 'UniformanceGrabber'))
     private$m_phdexe <- paste(package_location, '//bin//phdapinetinterface.exe',sep="")
     
