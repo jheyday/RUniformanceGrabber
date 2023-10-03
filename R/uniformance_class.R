@@ -107,7 +107,8 @@ public = list(
     }
   },
   #' @description
-  #' Sets the starttime to be passed to the results function 
+  #' Sets the starttime to be passed to the results function.
+  #' This takes either a date in either 'DD/MM/YYYY HH:mm:ss' or NOW-1d (d=day, w=week, y=year)
   #' @param starttime 'DD/MM/YYYY HH:mm:ss' format
   set_startime = function(starttime){
     private$m_Starttime <- starttime
@@ -115,6 +116,7 @@ public = list(
   #' @description
   #' Sets the Endtime to be passed to the results function 
   #' @param endtime 'DD/MM/YYYY HH:mm:ss' format
+  #' This takes either a date in either 'DD/MM/YYYY HH:mm:ss' or NOW-1d (d=day, w=week, y=year)
   set_endtime = function(endtime){
     private$m_Endtime <- endtime
   },

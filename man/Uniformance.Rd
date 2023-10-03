@@ -99,7 +99,8 @@ Remove a given tag
 \if{html}{\out{<a id="method-Uniformance-set_startime"></a>}}
 \if{latex}{\out{\hypertarget{method-Uniformance-set_startime}{}}}
 \subsection{Method \code{set_startime()}}{
-Sets the starttime to be passed to the results function
+Sets the starttime to be passed to the results function.
+This takes either a date in either 'DD/MM/YYYY HH:mm:ss' or NOW-1d (d=day, w=week, y=year)
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Uniformance$set_startime(starttime)}\if{html}{\out{</div>}}
 }
@@ -124,7 +125,8 @@ Sets the Endtime to be passed to the results function
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{endtime}}{'DD/MM/YYYY HH:mm:ss' format}
+\item{\code{endtime}}{'DD/MM/YYYY HH:mm:ss' format
+This takes either a date in either 'DD/MM/YYYY HH:mm:ss' or NOW-1d (d=day, w=week, y=year)}
 }
 \if{html}{\out{</div>}}
 }
