@@ -18,6 +18,7 @@ example <- Uniformance$new("MALSHW1")
 \itemize{
 \item \href{#method-Uniformance-new}{\code{Uniformance$new()}}
 \item \href{#method-Uniformance-add_tag}{\code{Uniformance$add_tag()}}
+\item \href{#method-Uniformance-show_taglist}{\code{Uniformance$show_taglist()}}
 \item \href{#method-Uniformance-clear_taglist}{\code{Uniformance$clear_taglist()}}
 \item \href{#method-Uniformance-remove_tag}{\code{Uniformance$remove_tag()}}
 \item \href{#method-Uniformance-set_startime}{\code{Uniformance$set_startime()}}
@@ -56,6 +57,16 @@ Checks if tag exists on server and adds to a list of tags that will be grabbed b
 }
 \if{html}{\out{</div>}}
 }
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Uniformance-show_taglist"></a>}}
+\if{latex}{\out{\hypertarget{method-Uniformance-show_taglist}{}}}
+\subsection{Method \code{show_taglist()}}{
+Shows taglist
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Uniformance$show_taglist()}\if{html}{\out{</div>}}
+}
+
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Uniformance-clear_taglist"></a>}}

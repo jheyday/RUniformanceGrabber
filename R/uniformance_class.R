@@ -86,10 +86,14 @@ public = list(
     }
   },
   #' @description
+  #' Shows taglist
+  show_taglist = function(){
+    print(private$m_tags)
+  },
+  #' @description
   #' Clears taglist
-  #' @param tag_name
   clear_taglist = function(){
-    m_tags = list()
+    private$m_tags = list()
   },
   #' @description
   #' Remove a given tag
