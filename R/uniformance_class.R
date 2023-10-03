@@ -97,7 +97,7 @@ public = list(
   },
   #' @description
   #' Sets the sample Frequency, value is in seconds 
-  #' @param endtime Default value is 0
+  #' @param samplefrequency Default value is 0
   set_samplefrequency = function(samplefrequency){
     private$m_samplefrequency <- samplefrequency
   },
@@ -116,7 +116,7 @@ public = list(
   },
   #' @description
   #' See current Sample Frequency 
-  #' @param endtime
+  #' @param samplefrequency
   samplefrequency = function(samplefrequency){
     return(private$m_samplefrequency)
   },

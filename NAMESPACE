@@ -2,6 +2,6 @@
 
 export(Uniformance)
 import(R6)
-import(XML)
 import(processx)
 import(rClr)
+import(xml2)
