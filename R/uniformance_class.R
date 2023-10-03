@@ -149,13 +149,11 @@ public = list(
   #' 
   #' This method requires that tags have been added via add_tag().
   get_results = function(){
-    print(private$m_tags)
     if (length(private$m_tags) == 0) {
       stop("Tag list is empty")
     }
     dataframe <- list()
     for (element in private$m_tags) {
-      print(element)
       commands <- c("getdata",
                     paste("-h", self$Hostname, sep=" "),
                     paste("-P", self$Port, sep=" "),
