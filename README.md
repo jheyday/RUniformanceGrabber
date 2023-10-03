@@ -18,7 +18,7 @@ library(devtools)
 # Install uniformancegrabber
 install_github("jheyday/RUniformanceGrabber")
 ```
-# Dependancies
+# Dependencies
 
 * [R6](https://cran.r-project.org/web/packages/R6/index.html)
 * [xml2](https://cran.r-project.org/web/packages/xml2/index.html)
