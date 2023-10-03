@@ -11,10 +11,11 @@ library(R6)
 #' Methods can be accessed for a class by creating an instance of the class and then using the following format "instance"$"Method"
 #' 
 #' 
-#' @param host This is the server where the tags you are interested in are, typically 'MALSHW1' or 'MBTSHW1'
-#' @param UserName Optional Parameter for 200 PHD Systems 
+#' @param Hostname This is the server where the tags you are interested in are, typically 'MALSHW1' or 'MBTSHW1'
+#' @param Username Optional Parameter for 200 PHD Systems 
 #' @param Password Optional Parameter for 200 PHD Systems
 #' @param Port Default port is 3000
+#' 
 #' @examples
 #' example <- Uniformance$new("MALSHW1")
 #' @import R6
@@ -35,19 +36,18 @@ public = list(
   Port= NULL,
   Username= NULL,
   Password= NULL,
-  
   #' @description
   #' Initialises instances of the uniformance class
   #' 
-  initialize = function(hostname = NA, username='', password='', port=3000, starttime='NOW-1D', endtime='NOW', samplefrequency=0){
+  initialize = function(hostname = NA, username='', password='', port=3000){
     
     self$Hostname             <- hostname
     self$Username             <- username
     self$Password             <- password
     self$Port                 <- port
-    private$m_Starttime       <- starttime
-    private$m_Endtime         <- endtime
-    private$m_samplefrequency <- samplefrequency
+    private$m_Starttime       <- 'NOW-1D'
+    private$m_Endtime         <- 'NOW'
+    private$m_samplefrequency <- 0
     package_location <- gsub("/","//",system.file(package = 'UniformanceGrabber'))
     private$m_phdexe <- paste(package_location, '//bin//phdapinetinterface.exe',sep="")
     
@@ -56,7 +56,6 @@ public = list(
   ##############################################################################
   # Parameters Functions
   ##############################################################################
-  
   #' @description
   #' Checks if tag exists on server and adds to a list of tags that will be grabbed by get_data
   #' @param tag_name 'A.RL_AI7361.BATCH'
@@ -82,7 +81,6 @@ public = list(
       return(1)
     }
   },
-  
   #' @description
   #' Sets the starttime to be passed to the results function 
   #' @param starttime 'DD/MM/YYYY HH:mm:ss' format
@@ -146,18 +144,19 @@ public = list(
       #                                                       paste("-e", private$m_Endtime, sep=""),
       #                                                       paste("-f", private$m_samplefrequency, sep="")
       #))
+
+      commands <- c("getdata",
+                    paste("-h", self$Hostname, sep=""),
+                    paste("-P", self$Port, sep=""),
+                    paste("-p", self$Password, sep=""),
+                    paste("-t", element, sep=""),
+                    paste("-u", self$Username, sep=""),
+                    paste("-s", private$m_Starttime, sep=""),
+                    paste("-e", private$m_Endtime, sep=""),
+                    paste("-f", private$m_samplefrequency, sep="")
+      )
       
-      
-      xmloutput <- run(self$m_phdexe, c("getdata",
-                                       paste("-h", self$Hostname, sep=""),
-                                       paste("-P", self$Port, sep=""),
-                                       paste("-p", self$Password, sep=""),
-                                       paste("-t", element, sep=""),
-                                       paste("-u", self$Username, sep=""),
-                                       paste("-s", private$m_Starttime, sep=""),
-                                       paste("-e", private$m_Endtime, sep=""),
-                                       paste("-f", private$m_samplefrequency, sep="")
-                                       ))
+      xmloutput <- run(private$m_phdexe, commands)
       
       rawdata   <-xml2::read_xml(xmloutput$stdout)
       tagname   <-c(xml_text(xml_find_all(rawdata, xpath = "//TagName")))

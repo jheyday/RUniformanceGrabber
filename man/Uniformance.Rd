@@ -49,10 +49,6 @@ example <- Uniformance$new("MALSHW1")
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{host}}{This is the server where the tags you are interested in are, typically 'MALSHW1' or 'MBTSHW1'}
-
-\item{\code{UserName}}{Optional Parameter for 200 PHD Systems}
-
 \item{\code{Password}}{Optional Parameter for 200 PHD Systems}
 
 \item{\code{Port}}{Default port is 3000}
