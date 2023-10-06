@@ -52,10 +52,10 @@ public = list(
     private$m_Starttime       <- 'NOW-1D'
     private$m_Endtime         <- 'NOW'
     private$m_SampleFrequency <- 0
-    private$m_SampleFrequencytype = 'RAW'
+    private$m_SampleFrequencyType = 'RAW'
     private$m_UseSampleFrequency = FALSE
-    private$m_reductiontype = 'None'
-    private$m_reductionfrequency = 60
+    private$m_ReductionType = 'None'
+    private$m_ReductionFrequency = 60
     package_location <- gsub("/","//",system.file(package = 'UniformanceGrabber'))
     private$m_phdexe <- paste(package_location, '//bin//phdapinetinterface.exe',sep="")
     #private$m_phdexe <- "C:\\Users\\jheywoo\\Programming Projects\\R\\UniformanceGrabberPackage - Copy\\inst\\bin\\phdapinetinterface.exe"
@@ -94,24 +94,20 @@ public = list(
   # Tag Functions
   ##############################################################################
   #' @description
-  #' Checks if tag exists on server and adds to a list of tags that will be grabbed by get_data
+  #' Checks if tag exists on server
   #' @param tag_name 'A.RL_AI7361.BATCH'
-  add_tag = function(tag_name){
-    if (tag_name %in% private$m_tags) {
-      print(paste(tag_name, "is already in the taglist"))
-      return(1)
-    }
+  check_tag = function(tag_name){
     commands <- c("checktag",
                   paste("-h", self$Hostname, sep=""),
                   paste("-P", self$Port, sep=""),
                   paste("-u", self$Username, sep=""),
                   paste("-p", self$Password, sep=""),
                   paste("-t", tag_name, sep="")
-                  )
+    )
     tagcheck <- run(private$m_phdexe, commands)
+    #tagcheck <- run(exe, commands)
     if (endsWith(tagcheck$stdout, "found\r\n")) {
-      private$m_tags <- append(private$m_tags, tag_name)
-      print(paste(tag_name, "added to taglist"))
+      print("Tag was found")
       return(0)
     } else if (endsWith(tagcheck$stdout, "system\r\n")) {
       print("Tagname was not found, check tagname and try again")
@@ -120,6 +116,25 @@ public = list(
       print("Connection to PHD server failed. Check server details")
       return(1)
     }
+  },
+  
+  #' @description
+  #' Checks if tag exists on server and adds to a list of tags that will be grabbed by get_data
+  #' @param tag_name 'A.RL_AI7361.BATCH'
+  add_tag = function(tag_name){
+    if (tag_name %in% private$m_tags) {
+      print(paste(tag_name, "is already in the taglist"))
+      return(1)
+    }
+    checkresult <- self$check_tag(tag_name)
+    if(checkresult == 0){
+      private$m_tags <- append(private$m_tags, tag_name)
+      return(0)
+    }
+    print("tag not added. Check errors.")
+    return(1)
+    
+    
   },
   #' @description
   #' Shows taglist
@@ -345,9 +360,11 @@ public = list(
 )
 )
 
+
+
 #exe
-#u <- Uniformance$new('MALSHW1')
-#u$add_tag('A.RL_AI7361.BATCH')
+u <- Uniformance$new('MALSHW1')
+u$add_tag('A.RL_AI7361.BATCH')
 #u$remo
 #u$add_tag('A.RL_AI7361.GRADE')
 #u$set_startime('NOW-3W')

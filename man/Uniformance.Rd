@@ -18,6 +18,7 @@ example <- Uniformance$new("MALSHW1")
 \itemize{
 \item \href{#method-Uniformance-new}{\code{Uniformance$new()}}
 \item \href{#method-Uniformance-show_parameters}{\code{Uniformance$show_parameters()}}
+\item \href{#method-Uniformance-check_tag}{\code{Uniformance$check_tag()}}
 \item \href{#method-Uniformance-add_tag}{\code{Uniformance$add_tag()}}
 \item \href{#method-Uniformance-show_taglist}{\code{Uniformance$show_taglist()}}
 \item \href{#method-Uniformance-clear_taglist}{\code{Uniformance$clear_taglist()}}
@@ -61,6 +62,23 @@ Return a dataframe of all current parameters the first dataframe contains server
 \if{html}{\out{<div class="r">}}\preformatted{Uniformance$show_parameters()}\if{html}{\out{</div>}}
 }
 
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Uniformance-check_tag"></a>}}
+\if{latex}{\out{\hypertarget{method-Uniformance-check_tag}{}}}
+\subsection{Method \code{check_tag()}}{
+Checks if tag exists on server
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Uniformance$check_tag(tag_name)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{tag_name}}{'A.RL_AI7361.BATCH'}
+}
+\if{html}{\out{</div>}}
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Uniformance-add_tag"></a>}}
