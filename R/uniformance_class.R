@@ -122,22 +122,25 @@ public = list(
   
   #' @description
   #' Checks if tag exists on server and adds to a list of tags that will be grabbed by get_data
+  #' returns current taglist 
   #' @param tag_name 'A.RL_AI7361.BATCH'
   add_tag = function(tag_name){
-    if (tag_name %in% private$m_tags) {
-      print(paste(tag_name, "is already in the taglist"))
-      return(1)
+    dud_tags <- list()
+    for (currenttag in tag_name){
+      if (currenttag %in% private$m_tags) {
+        print(paste(currenttag, "is already in the taglist"))
+        next
+      }
+      checkresult <- self$check_tag(currenttag)
+      if(checkresult == 0){
+        print(paste(currenttag, " added to taglist"))
+        private$m_tags <- append(private$m_tags, currenttag)
+        next
+      }
+      print(paste(currenttag, "Not added."))
+      dud_tags <- append(dud_tags, currenttag)
     }
-    checkresult <- self$check_tag(tag_name)
-    if(checkresult == 0){
-      print(paste(tag_name, " added to taglist"))
-      private$m_tags <- append(private$m_tags, tag_name)
-      return(0)
-    }
-    print("tag not added. Check errors.")
-    return(1)
-    
-    
+    self$show_taglist()
   },
   #' @description
   #' Shows taglist
@@ -145,7 +148,7 @@ public = list(
     print(do.call(c, private$m_tags))
   },
   #' @description
-  #' Clears taglist
+  #' removes all tags from taglist
   clear_taglist = function(){
     private$m_tags = list()
   },
@@ -196,7 +199,7 @@ public = list(
   #' @param useSampleFrequency Default value is FALSE
   set_UseSampleFrequency = function(useSampleFrequency){
     if (private$m_SampleFrequencyType == "Raw"){
-      print("Please ensure SampleFrequencyType is set to a mode which supports frequency")
+      print("Please ensure SampleFrequencyType is set to a mode which supports sampling frequency")
     }
     if (useSampleFrequency == TRUE | useSampleFrequency == FALSE){
       private$m_UseSampleFrequency <- useSampleFrequency
@@ -415,7 +418,8 @@ public = list(
 #u$set_SampleFrequency(60)
 #u$set_SampleFrequencyType('Snapshot')
 #u$add_tag('A.RL_AI7361.BATCH')
-#u$add_tag('A.RL_AI7361.GRADE')
+#u$add_tag(c('A.RL_AI7361.BATCH','A.RL_AI7361.GRADE'))
+#u$show_taglist()
 #u$show_parameters()
 #u$remo
 #u$show_taglist()
