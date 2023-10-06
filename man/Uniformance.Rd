@@ -138,6 +138,7 @@ Remove a given tag
 \if{html}{\out{<a id="method-Uniformance-set_SampleFrequency"></a>}}
 \if{latex}{\out{\hypertarget{method-Uniformance-set_SampleFrequency}{}}}
 \subsection{Method \code{set_SampleFrequency()}}{
+The SampleFrequency property identifies the re-sample frequency, in seconds, used when invoking the get_results method.
 Sets the sample Frequency, value is in seconds
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Uniformance$set_SampleFrequency(SampleFrequency)}\if{html}{\out{</div>}}
@@ -202,7 +203,21 @@ Sets the Sample Frequency Type Accepts:  Snapshot, Average, Resampled, Raw, Inte
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{SampleType}}{Default value is FALSE}
+\item{\code{SampleType}}{Default value is FALSE
+Average
+The value is the average from the data around the sample time. The time-weighted value for the raw samples are averaged so that the data value returned is an average for the value at the timestamp.
+
+Resampled
+The value is resampled from the raw data based on the resample method configured for the tag(s). Each tag may have a different resample method.
+
+Interpolate Raw
+Similar to the retrieval of raw data except that no data of -1 confidence is returned. When data of -1 confidence is encountered, the data for this point is interpolated from the surrounding data points and a confidence of 0 is applied to it. Unlike raw data, reduction values and unit conversion can be done using this method.
+
+Raw
+The value is the raw data. If more than one tag is being requested, the resulting data set will not be orthogonal as each tag will return a different number of values. No reduction values or unit conversion can be done when retrieving raw data.
+
+Snapshot
+The value is the interpolation between the raw data values at the sample time.}
 }
 \if{html}{\out{</div>}}
 }
@@ -221,7 +236,7 @@ Sees the use Sample Frequency Type
 \if{html}{\out{<a id="method-Uniformance-set_ReductionFrequency"></a>}}
 \if{latex}{\out{\hypertarget{method-Uniformance-set_ReductionFrequency}{}}}
 \subsection{Method \code{set_ReductionFrequency()}}{
-Sets the Reduction Frequency
+The ReductionFrequency property specifies the reduction frequency for any tag reductions being fetched. When using the ReductionFrequency property, the UseSampleFrequency flag must be False.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Uniformance$set_ReductionFrequency(ReductionFrequency)}\if{html}{\out{</div>}}
 }
@@ -277,7 +292,9 @@ Sees the Reduction Type
 \if{html}{\out{<a id="method-Uniformance-set_ReductionOffset"></a>}}
 \if{latex}{\out{\hypertarget{method-Uniformance-set_ReductionOffset}{}}}
 \subsection{Method \code{set_ReductionOffset()}}{
-Sets the Reduction Offset. Accepts: After, Around, Before
+Sets the Reduction Offset.
+ The ReductionOffset property identifies the offset applied when retrieving reductions.
+ Accepts: After, Around, Before
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Uniformance$set_ReductionOffset(set_ReductionOffset)}\if{html}{\out{</div>}}
 }

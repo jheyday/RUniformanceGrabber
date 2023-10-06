@@ -60,8 +60,6 @@ public = list(
     private$m_ReductionOffset = 'Around'
     package_location <- gsub("/","//",system.file(package = 'UniformanceGrabber'))
     private$m_phdexe <- paste(package_location, '//bin//phdapinetinterface.exe',sep="")
-    #private$m_phdexe <- "C:\\Users\\jheywoo\\Programming Projects\\R\\UniformanceGrabberPackage - Copy\\inst\\bin\\phdapinetinterface.exe"
-    
   },
   
   ##############################################################################
@@ -166,6 +164,7 @@ public = list(
   # Sampling Functions
   ##############################################################################
   #' @description
+  #' The SampleFrequency property identifies the re-sample frequency, in seconds, used when invoking the get_results method.
   #' Sets the sample Frequency, value is in seconds 
   #' @param SampleFrequency Default value is 0
   set_SampleFrequency = function(SampleFrequency){
@@ -208,6 +207,22 @@ public = list(
   #' @description
   #' Sets the Sample Frequency Type Accepts:  Snapshot, Average, Resampled, Raw, InterpolatedRaw
   #' @param SampleType Default value is FALSE
+  #' Average
+  #'The value is the average from the data around the sample time. The time-weighted value for the raw samples are averaged so that the data value returned is an average for the value at the timestamp.
+  #'
+  #'Resampled
+  #'The value is resampled from the raw data based on the resample method configured for the tag(s). Each tag may have a different resample method.
+  #'
+  #'Interpolate Raw
+  #'Similar to the retrieval of raw data except that no data of -1 confidence is returned. When data of -1 confidence is encountered, the data for this point is interpolated from the surrounding data points and a confidence of 0 is applied to it. Unlike raw data, reduction values and unit conversion can be done using this method.
+  #'
+  #'Raw
+  #'The value is the raw data. If more than one tag is being requested, the resulting data set will not be orthogonal as each tag will return a different number of values. No reduction values or unit conversion can be done when retrieving raw data.
+  #'
+  #'Snapshot
+  #'The value is the interpolation between the raw data values at the sample time.
+  
+  
   set_SampleFrequencyType = function(SampleType){
     enumtypes <- c("Snapshot", "Average", "Resampled", "Raw", "InterpolatedRaw")
     
@@ -225,7 +240,7 @@ public = list(
   },
   ##############################################################################
   #' @description
-  #' Sets the Reduction Frequency
+  #' The ReductionFrequency property specifies the reduction frequency for any tag reductions being fetched. When using the ReductionFrequency property, the UseSampleFrequency flag must be False.
   #' @param ReductionFrequency Default value is 60
   set_ReductionFrequency = function(ReductionFrequency){
     if(is.numeric(ReductionFrequency)){
@@ -265,7 +280,9 @@ public = list(
     return(private$ReductionType)
   },
   #' @description
-  #' Sets the Reduction Offset. Accepts: After, Around, Before
+  #' Sets the Reduction Offset.
+  #'  The ReductionOffset property identifies the offset applied when retrieving reductions.
+  #'  Accepts: After, Around, Before
   #' @param set_ReductionOffset Default value is Around
   set_ReductionOffset = function(set_ReductionOffset){
     enumtypes <- c("After", "Around", "Before")
@@ -385,16 +402,16 @@ public = list(
 
 
 #exe
-u <- Uniformance$new('MALSHW1')
-u$set_ReductionFrequency(60)
-u$set_SampleFrequency(60)
+#u <- Uniformance$new('MALSHW1')
+#u$set_ReductionFrequency(60)
+#u$set_SampleFrequency(60)
 #u$set_SampleFrequencyType('Snapshot')
-u$add_tag('A.RL_AI7361.BATCH')
-u$add_tag('A.RL_AI7361.GRADE')
-u$show_parameters()
+#u$add_tag('A.RL_AI7361.BATCH')
+#u$add_tag('A.RL_AI7361.GRADE')
+#u$show_parameters()
 #u$remo
-u$show_taglist()
-u$add_tag('A.RL_AI7361.GRADE')
+#u$show_taglist()
+#u$add_tag('A.RL_AI7361.GRADE')
 #u$set_startime('NOW-3W')
 #u$set_endtime('NOW-1D')
 #u$startime()
