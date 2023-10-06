@@ -78,18 +78,20 @@ public = list(
                                 Password = c(self$Password)
     )
     
-    Parameters <- data.frame(Tags = c(private$tags),
-                             StartTime = c(private$m_Starttime),
-                             EndTime = C(private$m_endtime),
+    Parameters <- data.frame(StartTime = c(private$m_Starttime),
+                             EndTime = c(private$m_Endtime),
                              UseSampleFrequency = c(private$m_UseSampleFrequency),
                              SampleFrequencyType = c(private$m_SampleFrequencyType),
                              SampleFrequency = c(private$m_SampleFrequency),
                              ReductionType = c(private$m_ReductionType),
                              ReductionFrequency = c(private$m_ReductionFrequency)
     )
-  
+    
     listofdataframes <- append(listofdataframes, list(serverdetails))
     listofdataframes <- append(listofdataframes, list(Parameters))
+    tags <- do.call(c, private$m_tags)
+    
+    listofdataframes <- append(listofdataframes, list(tags))
     return(listofdataframes)
   },
   ##############################################################################
@@ -141,7 +143,7 @@ public = list(
   #' @description
   #' Shows taglist
   show_taglist = function(){
-    print(private$m_tags)
+    print(do.call(c, private$m_tags))
   },
   #' @description
   #' Clears taglist
@@ -383,13 +385,16 @@ public = list(
 
 
 #exe
-#u <- Uniformance$new('MALSHW1')
-#u$set_ReductionFrequency(60)
-#u$set_SampleFrequency(60)
+u <- Uniformance$new('MALSHW1')
+u$set_ReductionFrequency(60)
+u$set_SampleFrequency(60)
 #u$set_SampleFrequencyType('Snapshot')
-#u$add_tag('A.RL_AI7361.BATCH')
+u$add_tag('A.RL_AI7361.BATCH')
+u$add_tag('A.RL_AI7361.GRADE')
+u$show_parameters()
 #u$remo
-#u$add_tag('A.RL_AI7361.GRADE')
+u$show_taglist()
+u$add_tag('A.RL_AI7361.GRADE')
 #u$set_startime('NOW-3W')
 #u$set_endtime('NOW-1D')
 #u$startime()
