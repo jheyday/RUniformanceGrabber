@@ -56,7 +56,7 @@ namespace ConsoleApp8
         public uint ReductionFrequency { get; set; }
 
         [Option('o', "ReductionOffset", HelpText = "The ReductionOffset property identifies the offset applied when retrieving reductions: After, Around, Before")]
-        public uint ReductionOffset { get; set; }
+        public REDUCTIONOFFSET ReductionOffset { get; set; }
 
     }
 
@@ -107,21 +107,9 @@ namespace ConsoleApp8
             h.UseSampleFrequency = opts.UseSampleFrequency;
             h.SampleFrequency = opts.Frequency;
             h.Sampletype = opts.SampleFrequencyType;
-            var wordssss = h.SampleFrequency;
-            Console.WriteLine("Sample Frequency\n");
-            Console.WriteLine(wordssss);
-            var wordsssss = h.UseSampleFrequency;
-            Console.WriteLine("SampleFequencyUse\n");
-            Console.WriteLine(wordsssss);
-            var words = h.Sampletype;
-            Console.WriteLine("Sample type\n");
-            Console.WriteLine(words);
-            var wordss = h.ReductionFrequency;
-            Console.WriteLine("Reduction Frequency\n");
-            Console.WriteLine(wordss);
-            var wordsss = h.ReductionType;
-            Console.WriteLine("Reduction Type\n");
-            Console.WriteLine(wordsss);
+            h.ReductionFrequency = opts.ReductionFrequency;
+            h.ReductionType = opts.ReductionType;
+            h.ReductionOffset = opts.ReductionOffset;
 
 
 

@@ -32,6 +32,7 @@ private = list(
   m_UseSampleFrequency = NULL,
   m_ReductionType = NULL,
   m_ReductionFrequency = NULL,
+  m_ReductionOffset = NULL,
   m_tags = list()
   
 ),
@@ -52,10 +53,11 @@ public = list(
     private$m_Starttime       <- 'NOW-1D'
     private$m_Endtime         <- 'NOW'
     private$m_SampleFrequency <- 0
-    private$m_SampleFrequencyType = 'RAW'
-    private$m_UseSampleFrequency = FALSE
+    private$m_SampleFrequencyType = "Raw"
+    private$m_UseSampleFrequency = 'False'
     private$m_ReductionType = 'None'
     private$m_ReductionFrequency = 60
+    private$m_ReductionOffset = 'Around'
     package_location <- gsub("/","//",system.file(package = 'UniformanceGrabber'))
     private$m_phdexe <- paste(package_location, '//bin//phdapinetinterface.exe',sep="")
     #private$m_phdexe <- "C:\\Users\\jheywoo\\Programming Projects\\R\\UniformanceGrabberPackage - Copy\\inst\\bin\\phdapinetinterface.exe"
@@ -264,7 +266,7 @@ public = list(
     enumtypes <- c("After", "Around", "Before")
     
     if(set_ReductionOffset %in% enumtypes){
-      private$m_set_ReductionOffset <- set_ReductionOffset
+      private$m_ReductionOffset <- set_ReductionOffset
       return(0)
     }
     print('Ensure Reduction Type matches one of "After","Around", "Before".')
@@ -272,7 +274,7 @@ public = list(
   #' @description
   #' Sees the Reduction Type 
   ReductionOffset = function(){
-    return(private$ReductionOffset)
+    return(private$m_ReductionOffset)
   },
   
   ##############################################################################
@@ -334,6 +336,21 @@ public = list(
                     paste("-R", private$m_ReductionType, sep=" "),
                     paste("-o", private$m_ReductionOffset, sep=" ")
       )
+      commands <- c("getdata",
+                    paste("-h", self$Hostname, sep=" "),
+                    paste("-P", self$Port, sep=" "),
+                    paste("-u", self$Username, sep=" "),
+                    paste("-p", self$Password, sep=" "),
+                    paste("-t", element, sep=" "),
+                    paste("-s", private$m_Starttime, sep=" "),
+                    paste("-e", private$m_Endtime, sep=" "),
+                    paste("-g", private$m_UseSampleFrequency, sep=" "),
+                    paste("-f", private$m_SampleFrequency, sep=" "),
+                    paste("-F", private$m_SampleFrequencyType, sep=" "),
+                    paste("-r", private$m_ReductionFrequency, sep=" "),
+                    paste("-R", private$m_ReductionType, sep=" "),
+                    paste("-o", private$m_ReductionOffset, sep=" ")
+      )
       
       xmloutput <- run(private$m_phdexe, commands)
       #xmloutput <- run(exe, commands)
@@ -363,8 +380,8 @@ public = list(
 
 
 #exe
-u <- Uniformance$new('MALSHW1')
-u$add_tag('A.RL_AI7361.BATCH')
+#u <- Uniformance$new('MALSHW1')
+#u$add_tag('A.RL_AI7361.BATCH')
 #u$remo
 #u$add_tag('A.RL_AI7361.GRADE')
 #u$set_startime('NOW-3W')
@@ -372,3 +389,4 @@ u$add_tag('A.RL_AI7361.BATCH')
 #u$startime()
 #sand <- u$get_results()
 #print(sand)
+#sand
