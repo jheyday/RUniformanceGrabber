@@ -54,7 +54,7 @@ public = list(
     private$m_Endtime         <- 'NOW'
     private$m_SampleFrequency <- 0
     private$m_SampleFrequencyType = "Raw"
-    private$m_UseSampleFrequency = 'False'
+    private$m_UseSampleFrequency = FALSE
     private$m_ReductionType = 'None'
     private$m_ReductionFrequency = 60
     private$m_ReductionOffset = 'Around'
@@ -172,8 +172,8 @@ public = list(
       return(1)
     }
     private$m_SampleFrequency <- SampleFrequency
-    if (private$m_useSampleFrequency == FALSE){
-      private$m_useSampleFrequency = TRUE
+    if (private$m_UseSampleFrequency == FALSE){
+      private$m_UseSampleFrequency = TRUE
       print("useSampleFrequency set to true, this can be disabled via set_useSampleFrequency")
     }
   },
@@ -214,6 +214,7 @@ public = list(
       return(0)
     }
     print('Ensure type matches one of "Snapshot", "Average", "Resampled", "Raw", "InterpolatedRaw".')
+    return(1)
   },
   #' @description
   #' Sees the use Sample Frequency Type 
@@ -227,8 +228,10 @@ public = list(
   set_ReductionFrequency = function(ReductionFrequency){
     if(is.numeric(ReductionFrequency)){
       private$m_ReductionFrequency
+      return(0)
     }
     print('Value should be numeric')
+    return(1)
   },
   #' @description
   #' Sees the use Reduction Frequency 
@@ -381,6 +384,9 @@ public = list(
 
 #exe
 #u <- Uniformance$new('MALSHW1')
+#u$set_ReductionFrequency(60)
+#u$set_SampleFrequency(60)
+#u$set_SampleFrequencyType('Snapshot')
 #u$add_tag('A.RL_AI7361.BATCH')
 #u$remo
 #u$add_tag('A.RL_AI7361.GRADE')
