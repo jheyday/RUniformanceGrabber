@@ -27,7 +27,11 @@ private = list(
   m_Starttime =NULL,
   m_Endtime = NULL,
   m_phdexe = NULL,
-  m_samplefrequency = NULL,
+  m_SampleFrequency = NULL,
+  m_SampleFrequencyType = NULL,
+  m_UseSampleFrequency = NULL,
+  m_ReductionType = NULL,
+  m_ReductionFrequency = NULL,
   m_tags = list()
   
 ),
@@ -47,7 +51,11 @@ public = list(
     self$Port                 <- port
     private$m_Starttime       <- 'NOW-1D'
     private$m_Endtime         <- 'NOW'
-    private$m_samplefrequency <- 0
+    private$m_SampleFrequency <- 0
+    private$m_SampleFrequencytype = 'RAW'
+    private$m_UseSampleFrequency = FALSE
+    private$m_reductiontype = 'None'
+    private$m_reductionfrequency = 60
     package_location <- gsub("/","//",system.file(package = 'UniformanceGrabber'))
     private$m_phdexe <- paste(package_location, '//bin//phdapinetinterface.exe',sep="")
     #private$m_phdexe <- "C:\\Users\\jheywoo\\Programming Projects\\R\\UniformanceGrabberPackage - Copy\\inst\\bin\\phdapinetinterface.exe"
@@ -55,7 +63,35 @@ public = list(
   },
   
   ##############################################################################
-  # Parameters Functions
+  # Other Functions
+  ##############################################################################
+  #' @description
+  #' Return a dataframe of all current parameters the first dataframe contains server parameters and the second contains details related to data to be acquired.
+  show_parameters = function(){
+    listofdataframes = list()
+    
+    serverdetails <- data.frame(Hostname = c(self$Hostname),
+                                Port = c(self$Port),
+                                Username = c(self$Username),
+                                Password = c(self$Password)
+    )
+    
+    Parameters <- data.frame(Tags = c(private$tags),
+                             StartTime = c(private$m_Starttime),
+                             EndTime = C(private$m_endtime),
+                             UseSampleFrequency = c(private$m_UseSampleFrequency),
+                             SampleFrequencyType = c(private$m_SampleFrequencyType),
+                             SampleFrequency = c(private$m_SampleFrequency),
+                             ReductionType = c(private$m_ReductionType),
+                             ReductionFrequency = c(private$m_ReductionFrequency)
+    )
+  
+    listofdataframes <- append(listofdataframes, list(serverdetails))
+    listofdataframes <- append(listofdataframes, list(Parameters))
+    return(listofdataframes)
+  },
+  ##############################################################################
+  # Tag Functions
   ##############################################################################
   #' @description
   #' Checks if tag exists on server and adds to a list of tags that will be grabbed by get_data
@@ -106,6 +142,127 @@ public = list(
       print(paste(tag_name, "was not found in the taglist.\n"))
     }
   },
+  
+  ##############################################################################
+  # Sampling Functions
+  ##############################################################################
+  #' @description
+  #' Sets the sample Frequency, value is in seconds 
+  #' @param SampleFrequency Default value is 0
+  set_SampleFrequency = function(SampleFrequency){
+    if (!(is.numeric(SampleFrequency))){
+      print("Sample Frequency should be numeric")
+      return(1)
+    }
+    private$m_SampleFrequency <- SampleFrequency
+    if (private$m_useSampleFrequency == FALSE){
+      private$m_useSampleFrequency = TRUE
+      print("useSampleFrequency set to true, this can be disabled via set_useSampleFrequency")
+    }
+  },
+  #' @description
+  #' See current Sample Frequency 
+  SampleFrequency = function(){
+    return(private$m_SampleFrequency)
+  },
+  
+  #' @description
+  #' Sets the use sample frequency flag
+  #' If True: The effective Reduction Frequency is the SampleFrequency.
+  #' If False: The ReductionFrequency property specifies the Reduction Frequency.
+  #' @param useSampleFrequency Default value is FALSE
+  set_UseSampleFrequency = function(useSampleFrequency){
+    if (useSampleFrequency == TRUE | useSampleFrequency == FALSE){
+      private$m_UseSampleFrequency <- useSampleFrequency
+      return(0)
+    }
+    print("Ensure useSampleFrequency is TRUE or FALSE")
+    return(1)
+  },
+  #' @description
+  #' Sees the use sample frequency flag 
+  UseSampleFrequency = function(){
+    return(private$m_UseSampleFrequency)
+  },
+  
+  
+  #' @description
+  #' Sets the Sample Frequency Type Accepts:  Snapshot, Average, Resampled, Raw, InterpolatedRaw
+  #' @param SampleType Default value is FALSE
+  set_SampleFrequencyType = function(SampleType){
+    enumtypes <- c("Snapshot", "Average", "Resampled", "Raw", "InterpolatedRaw")
+    
+    if(SampleType %in% enumtypes){
+      private$m_SampleFrequencyType <- SampleType
+      return(0)
+    }
+    print('Ensure type matches one of "Snapshot", "Average", "Resampled", "Raw", "InterpolatedRaw".')
+  },
+  #' @description
+  #' Sees the use Sample Frequency Type 
+  SampleFrequencyType = function(){
+    return(private$SampleFrequencyType)
+  },
+  ##############################################################################
+  #' @description
+  #' Sets the Reduction Frequency
+  #' @param ReductionFrequency Default value is 60
+  set_ReductionFrequency = function(ReductionFrequency){
+    if(is.numeric(ReductionFrequency)){
+      private$m_ReductionFrequency
+    }
+    print('Value should be numeric')
+  },
+  #' @description
+  #' Sees the use Reduction Frequency 
+  ReductionFrequency = function(){
+    return(private$ReductionFrequency)
+  },
+  
+  #' @description
+  #' Sets the Reduction Type Accepts:  "None", "Average", "Delta", "Minimum", "Maximum",
+  #'"StandardDeviation", "RegressionSlope", "RegressionConstant",
+  #'"RegressionDeviation","First", "Last"
+  #' @param ReductionType Default value is FALSE
+  set_ReductionType = function(ReductionType){
+    enumtypes <- c("None", "Average", "Delta", "Minimum", "Maximum",
+                   "StandardDeviation", "RegressionSlope", "RegressionConstant",
+                   "RegressionDeviation","First", "Last")
+    
+    if(ReductionType %in% enumtypes){
+      private$m_ReductionType <- ReductionType
+      return(0)
+    }
+    print('Ensure Reduction Type matches one of "None", "Average", "Delta", "Minimum", "Maximum",
+                   "StandardDeviation", "RegressionSlope", "RegressionConstant",
+                   "RegressionDeviation","First", "Last".')
+  },
+    #' @description
+  #' Sees the Reduction Type 
+  ReductionType = function(){
+    return(private$ReductionType)
+  },
+  #' @description
+  #' Sets the Reduction Offset. Accepts: After, Around, Before
+  #' @param set_ReductionOffset Default value is Around
+  set_ReductionOffset = function(set_ReductionOffset){
+    enumtypes <- c("After", "Around", "Before")
+    
+    if(set_ReductionOffset %in% enumtypes){
+      private$m_set_ReductionOffset <- set_ReductionOffset
+      return(0)
+    }
+    print('Ensure Reduction Type matches one of "After","Around", "Before".')
+  },
+  #' @description
+  #' Sees the Reduction Type 
+  ReductionOffset = function(){
+    return(private$ReductionOffset)
+  },
+  
+  ##############################################################################
+  # Time  Functions
+  ##############################################################################
   #' @description
   #' Sets the starttime to be passed to the results function.
   #' This takes either a date in either 'DD/MM/YYYY HH:mm:ss' or NOW-1d (d=day, w=week, y=year)
@@ -121,13 +278,6 @@ public = list(
     private$m_Endtime <- endtime
   },
   #' @description
-  #' Sets the sample Frequency, value is in seconds 
-  #' @param samplefrequency Default value is 0
-  set_samplefrequency = function(samplefrequency){
-    private$m_samplefrequency <- samplefrequency
-  },
-  
-  #' @description
   #' See current Starttime 
   #' @param starttime
   startime = function(){
@@ -138,12 +288,6 @@ public = list(
   #' @param endtime 
   endtime = function(){
     return(private$m_Endtime)
-  },
-  #' @description
-  #' See current Sample Frequency 
-  #' @param samplefrequency
-  samplefrequency = function(){
-    return(private$m_samplefrequency)
   },
   
   ##############################################################################
@@ -163,12 +307,17 @@ public = list(
       commands <- c("getdata",
                     paste("-h", self$Hostname, sep=" "),
                     paste("-P", self$Port, sep=" "),
+                    paste("-u", self$Username, sep=" "),
                     paste("-p", self$Password, sep=" "),
                     paste("-t", element, sep=" "),
-                    paste("-u", self$Username, sep=" "),
                     paste("-s", private$m_Starttime, sep=" "),
                     paste("-e", private$m_Endtime, sep=" "),
-                    paste("-f", private$m_samplefrequency, sep=" ")
+                    paste("-g", private$m_UseSampleFrequency, sep=" "),
+                    paste("-f", private$m_SampleFrequency, sep=" "),
+                    paste("-F", private$m_SampleFrequencyType, sep=" "),
+                    paste("-r", private$m_ReductionFrequency, sep=" "),
+                    paste("-R", private$m_ReductionType, sep=" "),
+                    paste("-o", private$m_ReductionOffset, sep=" ")
       )
       
       xmloutput <- run(private$m_phdexe, commands)
@@ -195,7 +344,6 @@ public = list(
   }
 )
 )
-
 
 #exe
 #u <- Uniformance$new('MALSHW1')

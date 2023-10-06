@@ -17,16 +17,27 @@ example <- Uniformance$new("MALSHW1")
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-Uniformance-new}{\code{Uniformance$new()}}
+\item \href{#method-Uniformance-show_parameters}{\code{Uniformance$show_parameters()}}
 \item \href{#method-Uniformance-add_tag}{\code{Uniformance$add_tag()}}
 \item \href{#method-Uniformance-show_taglist}{\code{Uniformance$show_taglist()}}
 \item \href{#method-Uniformance-clear_taglist}{\code{Uniformance$clear_taglist()}}
 \item \href{#method-Uniformance-remove_tag}{\code{Uniformance$remove_tag()}}
+\item \href{#method-Uniformance-set_SampleFrequency}{\code{Uniformance$set_SampleFrequency()}}
+\item \href{#method-Uniformance-SampleFrequency}{\code{Uniformance$SampleFrequency()}}
+\item \href{#method-Uniformance-set_UseSampleFrequency}{\code{Uniformance$set_UseSampleFrequency()}}
+\item \href{#method-Uniformance-UseSampleFrequency}{\code{Uniformance$UseSampleFrequency()}}
+\item \href{#method-Uniformance-set_SampleFrequencyType}{\code{Uniformance$set_SampleFrequencyType()}}
+\item \href{#method-Uniformance-SampleFrequencyType}{\code{Uniformance$SampleFrequencyType()}}
+\item \href{#method-Uniformance-set_ReductionFrequency}{\code{Uniformance$set_ReductionFrequency()}}
+\item \href{#method-Uniformance-ReductionFrequency}{\code{Uniformance$ReductionFrequency()}}
+\item \href{#method-Uniformance-set_ReductionType}{\code{Uniformance$set_ReductionType()}}
+\item \href{#method-Uniformance-ReductionType}{\code{Uniformance$ReductionType()}}
+\item \href{#method-Uniformance-set_ReductionOffset}{\code{Uniformance$set_ReductionOffset()}}
+\item \href{#method-Uniformance-ReductionOffset}{\code{Uniformance$ReductionOffset()}}
 \item \href{#method-Uniformance-set_startime}{\code{Uniformance$set_startime()}}
 \item \href{#method-Uniformance-set_endtime}{\code{Uniformance$set_endtime()}}
-\item \href{#method-Uniformance-set_samplefrequency}{\code{Uniformance$set_samplefrequency()}}
 \item \href{#method-Uniformance-startime}{\code{Uniformance$startime()}}
 \item \href{#method-Uniformance-endtime}{\code{Uniformance$endtime()}}
-\item \href{#method-Uniformance-samplefrequency}{\code{Uniformance$samplefrequency()}}
 \item \href{#method-Uniformance-get_results}{\code{Uniformance$get_results()}}
 \item \href{#method-Uniformance-clone}{\code{Uniformance$clone()}}
 }
@@ -38,6 +49,16 @@ example <- Uniformance$new("MALSHW1")
 Initialises instances of the uniformance class
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Uniformance$new(hostname = NA, username = "", password = "", port = 3000)}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Uniformance-show_parameters"></a>}}
+\if{latex}{\out{\hypertarget{method-Uniformance-show_parameters}{}}}
+\subsection{Method \code{show_parameters()}}{
+Return a dataframe of all current parameters the first dataframe contains server parameters and the second contains details related to data to be acquired.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Uniformance$show_parameters()}\if{html}{\out{</div>}}
 }
 
 }
@@ -96,6 +117,172 @@ Remove a given tag
 }
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Uniformance-set_SampleFrequency"></a>}}
+\if{latex}{\out{\hypertarget{method-Uniformance-set_SampleFrequency}{}}}
+\subsection{Method \code{set_SampleFrequency()}}{
+Sets the sample Frequency, value is in seconds
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Uniformance$set_SampleFrequency(SampleFrequency)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{SampleFrequency}}{Default value is 0}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Uniformance-SampleFrequency"></a>}}
+\if{latex}{\out{\hypertarget{method-Uniformance-SampleFrequency}{}}}
+\subsection{Method \code{SampleFrequency()}}{
+See current Sample Frequency
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Uniformance$SampleFrequency()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Uniformance-set_UseSampleFrequency"></a>}}
+\if{latex}{\out{\hypertarget{method-Uniformance-set_UseSampleFrequency}{}}}
+\subsection{Method \code{set_UseSampleFrequency()}}{
+Sets the use sample frequency flag
+If True: The effective Reduction Frequency is the SampleFrequency.
+If False: The ReductionFrequency property specifies the Reduction Frequency.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Uniformance$set_UseSampleFrequency(useSampleFrequency)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{useSampleFrequency}}{Default value is FALSE}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Uniformance-UseSampleFrequency"></a>}}
+\if{latex}{\out{\hypertarget{method-Uniformance-UseSampleFrequency}{}}}
+\subsection{Method \code{UseSampleFrequency()}}{
+Sees the use sample frequency flag
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Uniformance$UseSampleFrequency()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Uniformance-set_SampleFrequencyType"></a>}}
+\if{latex}{\out{\hypertarget{method-Uniformance-set_SampleFrequencyType}{}}}
+\subsection{Method \code{set_SampleFrequencyType()}}{
+Sets the Sample Frequency Type Accepts:  Snapshot, Average, Resampled, Raw, InterpolatedRaw
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Uniformance$set_SampleFrequencyType(SampleType)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{SampleType}}{Default value is FALSE}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Uniformance-SampleFrequencyType"></a>}}
+\if{latex}{\out{\hypertarget{method-Uniformance-SampleFrequencyType}{}}}
+\subsection{Method \code{SampleFrequencyType()}}{
+Sees the use Sample Frequency Type
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Uniformance$SampleFrequencyType()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Uniformance-set_ReductionFrequency"></a>}}
+\if{latex}{\out{\hypertarget{method-Uniformance-set_ReductionFrequency}{}}}
+\subsection{Method \code{set_ReductionFrequency()}}{
+Sets the Reduction Frequency
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Uniformance$set_ReductionFrequency(ReductionFrequency)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{ReductionFrequency}}{Default value is 60}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Uniformance-ReductionFrequency"></a>}}
+\if{latex}{\out{\hypertarget{method-Uniformance-ReductionFrequency}{}}}
+\subsection{Method \code{ReductionFrequency()}}{
+Sees the use Reduction Frequency
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Uniformance$ReductionFrequency()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Uniformance-set_ReductionType"></a>}}
+\if{latex}{\out{\hypertarget{method-Uniformance-set_ReductionType}{}}}
+\subsection{Method \code{set_ReductionType()}}{
+Sets the Reduction Type Accepts:  "None", "Average", "Delta", "Minimum", "Maximum",
+"StandardDeviation", "RegressionSlope", "RegressionConstant",
+"RegressionDeviation","First", "Last"
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Uniformance$set_ReductionType(ReductionType)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{ReductionType}}{Default value is FALSE}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Uniformance-ReductionType"></a>}}
+\if{latex}{\out{\hypertarget{method-Uniformance-ReductionType}{}}}
+\subsection{Method \code{ReductionType()}}{
+Sees the Reduction Type
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Uniformance$ReductionType()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Uniformance-set_ReductionOffset"></a>}}
+\if{latex}{\out{\hypertarget{method-Uniformance-set_ReductionOffset}{}}}
+\subsection{Method \code{set_ReductionOffset()}}{
+Sets the Reduction Offset. Accepts: After, Around, Before
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Uniformance$set_ReductionOffset(set_ReductionOffset)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{set_ReductionOffset}}{Default value is Around}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Uniformance-ReductionOffset"></a>}}
+\if{latex}{\out{\hypertarget{method-Uniformance-ReductionOffset}{}}}
+\subsection{Method \code{ReductionOffset()}}{
+Sees the Reduction Type
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Uniformance$ReductionOffset()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Uniformance-set_startime"></a>}}
 \if{latex}{\out{\hypertarget{method-Uniformance-set_startime}{}}}
 \subsection{Method \code{set_startime()}}{
@@ -132,23 +319,6 @@ This takes either a date in either 'DD/MM/YYYY HH:mm:ss' or NOW-1d (d=day, w=wee
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Uniformance-set_samplefrequency"></a>}}
-\if{latex}{\out{\hypertarget{method-Uniformance-set_samplefrequency}{}}}
-\subsection{Method \code{set_samplefrequency()}}{
-Sets the sample Frequency, value is in seconds
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Uniformance$set_samplefrequency(samplefrequency)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{samplefrequency}}{Default value is 0}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Uniformance-startime"></a>}}
 \if{latex}{\out{\hypertarget{method-Uniformance-startime}{}}}
 \subsection{Method \code{startime()}}{
@@ -174,16 +344,6 @@ See current Endtime
 }
 \if{html}{\out{</div>}}
 }
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Uniformance-samplefrequency"></a>}}
-\if{latex}{\out{\hypertarget{method-Uniformance-samplefrequency}{}}}
-\subsection{Method \code{samplefrequency()}}{
-See current Sample Frequency
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Uniformance$samplefrequency()}\if{html}{\out{</div>}}
-}
-
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Uniformance-get_results"></a>}}

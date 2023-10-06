@@ -13,7 +13,7 @@ using Uniformance.PHD;
 
 namespace ConsoleApp8
 {
-
+    
     [Verb("getdata", HelpText = "Returns data from a tag as XML.")]
     class dataOptions
     {
@@ -30,7 +30,8 @@ namespace ConsoleApp8
         [Option('P', "port", Default = 3000, HelpText = "Port")]
         public int Port { get; set; }
 
-        [Option('t', "tag", Default = "A.RL_AI7361.BATCH", HelpText = "Tag")]
+        // Default = "A.RL_AI7361.BATCH"
+        [Option('t', "tag", HelpText = "Tag")]
         public string Tag { get; set; }
 
         [Option('s', "starttime", Default = "NOW-1D", HelpText = "StartTime")]
@@ -39,8 +40,24 @@ namespace ConsoleApp8
         [Option('e', "endtime", Default = "NOW", HelpText = "EndTime")]
         public string EndTime { get; set; }
 
-        [Option('f', "frequency", Default = 0, HelpText = "Sample Frequency")]
+        [Option('f', "samplefrequency", HelpText = "Sample Frequency")]
         public uint Frequency { get; set; }
+
+        [Option('g', "usesamplefrequency", Default =false, HelpText = "Enable Sample Frequency")]
+        public Boolean UseSampleFrequency { get; set; }
+
+        [Option('F', "samplefrequencytype", Default =SAMPLETYPE.Raw ,HelpText = "Sample Type: Snapshot, Average, Raw")]
+        public  SAMPLETYPE SampleFrequencyType { get; set; }
+
+        [Option('R', "reductiontype", HelpText = "Sample Type: Snapshot, Average, Raw")]
+        public REDUCTIONTYPE ReductionType { get; set; } 
+
+        [Option('r', "reductionfrequency", HelpText = "Sample Type: Snapshot, Average, Raw")]
+        public uint ReductionFrequency { get; set; }
+
+        [Option('o', "ReductionOffset", HelpText = "The ReductionOffset property identifies the offset applied when retrieving reductions: After, Around, Before")]
+        public uint ReductionOffset { get; set; }
+
     }
 
     [Verb("checktag", HelpText = "Record changes to the repository.")]
@@ -87,7 +104,26 @@ namespace ConsoleApp8
 
             h.StartTime = opts.StartTime;
             h.EndTime = opts.EndTime;
+            h.UseSampleFrequency = opts.UseSampleFrequency;
             h.SampleFrequency = opts.Frequency;
+            h.Sampletype = opts.SampleFrequencyType;
+            var wordssss = h.SampleFrequency;
+            Console.WriteLine("Sample Frequency\n");
+            Console.WriteLine(wordssss);
+            var wordsssss = h.UseSampleFrequency;
+            Console.WriteLine("SampleFequencyUse\n");
+            Console.WriteLine(wordsssss);
+            var words = h.Sampletype;
+            Console.WriteLine("Sample type\n");
+            Console.WriteLine(words);
+            var wordss = h.ReductionFrequency;
+            Console.WriteLine("Reduction Frequency\n");
+            Console.WriteLine(wordss);
+            var wordsss = h.ReductionType;
+            Console.WriteLine("Reduction Type\n");
+            Console.WriteLine(wordsss);
+
+
 
 
             if (opts.Port != 3000) { u.Port = opts.Port; }
