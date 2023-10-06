@@ -87,9 +87,6 @@ public = list(
     
     listofdataframes <- append(listofdataframes, list(serverdetails))
     listofdataframes <- append(listofdataframes, list(Parameters))
-    tags <- do.call(c, private$m_tags)
-    
-    listofdataframes <- append(listofdataframes, list(tags))
     return(listofdataframes)
   },
   ##############################################################################
@@ -125,7 +122,6 @@ public = list(
   #' returns current taglist 
   #' @param tag_name 'A.RL_AI7361.BATCH'
   add_tag = function(tag_name){
-    dud_tags <- list()
     for (currenttag in tag_name){
       if (currenttag %in% private$m_tags) {
         print(paste(currenttag, "is already in the taglist"))
@@ -138,7 +134,6 @@ public = list(
         next
       }
       print(paste(currenttag, "Not added."))
-      dud_tags <- append(dud_tags, currenttag)
     }
     self$show_taglist()
   },
@@ -183,7 +178,7 @@ public = list(
     }
     if (private$m_SampleFrequencyType == "Raw"){
       private$m_UseSampleFrequency = "Snapshot"
-      print("Samplefrequency set to 'Snapshot' to support frequency, this can be changed via set_SampleFrequencyType")
+      print("Samplefrequency set to 'Snapshot' to support frequency, this can be changed via set_SampleFrequencyType if other behaviour is required")
     }
   },
   #' @description
@@ -268,7 +263,7 @@ public = list(
   },
   
   #' @description
-  #' Sets the Reduction Type Accepts:  "None", "Average", "Delta", "Minimum", "Maximum",
+  #' Sets the Reduction Type Accepts:  Snapshot, Average, Resampled, Raw, InterpolatedRaw,
   #'"StandardDeviation", "RegressionSlope", "RegressionConstant",
   #'"RegressionDeviation","First", "Last"
   #' @param ReductionType Default value is FALSE
@@ -353,28 +348,15 @@ public = list(
       stop("Tag list is empty")
     }
     dataframe <- list()
-    for (element in private$m_tags) {
+    for (element in seq_along(private$m_tags)) {
+     print(paste("Current Tag:",private$m_tags[element] , " ", element, " of ", length(private$m_tags)))
+      
       commands <- c("getdata",
                     paste("-h", self$Hostname, sep=" "),
                     paste("-P", self$Port, sep=" "),
                     paste("-u", self$Username, sep=" "),
                     paste("-p", self$Password, sep=" "),
-                    paste("-t", element, sep=" "),
-                    paste("-s", private$m_Starttime, sep=" "),
-                    paste("-e", private$m_Endtime, sep=" "),
-                    paste("-g", private$m_UseSampleFrequency, sep=" "),
-                    paste("-f", private$m_SampleFrequency, sep=" "),
-                    paste("-F", private$m_SampleFrequencyType, sep=" "),
-                    paste("-r", private$m_ReductionFrequency, sep=" "),
-                    paste("-R", private$m_ReductionType, sep=" "),
-                    paste("-o", private$m_ReductionOffset, sep=" ")
-      )
-      commands <- c("getdata",
-                    paste("-h", self$Hostname, sep=" "),
-                    paste("-P", self$Port, sep=" "),
-                    paste("-u", self$Username, sep=" "),
-                    paste("-p", self$Password, sep=" "),
-                    paste("-t", element, sep=" "),
+                    paste("-t", private$m_tags[element], sep=" "),
                     paste("-s", private$m_Starttime, sep=" "),
                     paste("-e", private$m_Endtime, sep=" "),
                     paste("-g", private$m_UseSampleFrequency, sep=" "),
@@ -404,6 +386,8 @@ public = list(
       
       df <- as.data.frame(do.call(cbind, listoflists))   
       dataframe <- append(dataframe, list(df))
+      
+      
     }
     return(dataframe)
   }
@@ -418,14 +402,14 @@ public = list(
 #u$set_SampleFrequency(60)
 #u$set_SampleFrequencyType('Snapshot')
 #u$add_tag('A.RL_AI7361.BATCH')
-#u$add_tag(c('A.RL_AI7361.BATCH','A.RL_AI7361.GRADE'))
+#u$add_tag(c('A.RL_AI7361.BATCH','A.RL_AI7361.GRADE','A.R_R26PRM7.V3','A.R_FQ3302P.FQ','A.R_FQ4123C.FQ'))
 #u$show_taglist()
 #u$show_parameters()
 #u$remo
 #u$show_taglist()
 #u$add_tag('A.RL_AI7361.GRADE')
-#u$set_startime('NOW-3W')
-#u$set_endtime('NOW-1D')
+#u$set_startime('NOW-10Y')
+#u$set_endtime('NOW')
 #u$startime()
 #sand <- u$get_results()
 #print(sand)
