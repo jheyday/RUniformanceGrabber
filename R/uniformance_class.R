@@ -130,6 +130,7 @@ public = list(
     }
     checkresult <- self$check_tag(tag_name)
     if(checkresult == 0){
+      print(paste(tag_name, " added to taglist"))
       private$m_tags <- append(private$m_tags, tag_name)
       return(0)
     }
@@ -177,6 +178,10 @@ public = list(
       private$m_UseSampleFrequency = TRUE
       print("useSampleFrequency set to true, this can be disabled via set_useSampleFrequency")
     }
+    if (private$m_SampleFrequencyType == "Raw"){
+      private$m_UseSampleFrequency = "Snapshot"
+      print("Samplefrequency set to 'Snapshot' to support frequency, this can be changed via set_SampleFrequencyType")
+    }
   },
   #' @description
   #' See current Sample Frequency 
@@ -190,6 +195,9 @@ public = list(
   #' If False: The ReductionFrequency property specifies the Reduction Frequency.
   #' @param useSampleFrequency Default value is FALSE
   set_UseSampleFrequency = function(useSampleFrequency){
+    if (private$m_SampleFrequencyType == "Raw"){
+      print("Please ensure SampleFrequencyType is set to a mode which supports frequency")
+    }
     if (useSampleFrequency == TRUE | useSampleFrequency == FALSE){
       private$m_UseSampleFrequency <- useSampleFrequency
       return(0)
