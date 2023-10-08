@@ -30,7 +30,8 @@ A help file is avaliable within R after loading the library using
 ``` R
 ?Uniformance
 ```
-## Creating class instance
+## Creating Class Instance
+Parameters that aren't set will use their default values.
 ```R
 #Load the Library 
 library(UniformanceGrabber)
@@ -40,9 +41,9 @@ u <- Uniformance$new('hostname', 'username', 'password', 'port')
 # All currently set parameters can be viewed using
 u$show_parameters()
 ```
-Parameters that aren't set will use their default values.
 
-## Sample time controls
+
+## Sample Time Controls
 ``` R
 #Starttime default to NOW-1D, this takes either a string with relative date such as NOW-1D or 'DD/MM/YYYY HH:mm:ss' format
 # If the format isn't compatible it will create errors when using $get_results()
@@ -52,8 +53,8 @@ u$set_Startime('NOW-3W')
 u$set_Endtime('NOW')
 
 #These values can be checked with the following commands
-u$startime
-u$endtime
+u$Startime
+u$Endtime
 ```
 
 ## Sample Frequency
@@ -85,7 +86,7 @@ u$ReductionFrequencyType()
 u$ReductionFrequencyOffset()
 ```
 
-## Adding tags and getting results
+## Adding Tags and Getting Results
 ```R
 #Tags can be added either individually or as a list.
 u$add_tag('A.RL_AI7361.BATCH')
