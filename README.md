@@ -30,36 +30,79 @@ A help file is avaliable within R after loading the library using
 ``` R
 ?Uniformance
 ```
-Example Getting data
-
+## Creating class instance
 ```R
 #Load the Library 
 library(UniformanceGrabber)
 #Create instance of the Uniformance class, this a hostname, username, password and port
-# Username and password default to "" and port defaults to 3000, these don't need to be changed.
-u <- Uniformance$new('MALSHW1')
-#Add tags, current these need to be added one by one.
+# Username and password default to "" and port defaults to 3000.
+u <- Uniformance$new('hostname', 'username', 'password', 'port')
+# All currently set parameters can be viewed using
+u$show_parameters()
+```
+Parameters that aren't set will use their default values.
+
+## Sample time controls
+``` R
+#Starttime default to NOW-1D, this takes either a string with relative date such as NOW-1D or 'DD/MM/YYYY HH:mm:ss' format
+# If the format isn't compatible it will create errors when using $get_results()
+u$set_Startime('NOW-3W')
+#Starttime default to NOW, this takes either a string with relative date such as NOW-1D or 'DD/MM/YYYY HH:mm:ss' format
+#Endtime must be after starttime.
+u$set_Endtime('NOW')
+
+#These values can be checked with the following commands
+u$startime
+u$endtime
+```
+
+## Sample Frequency
+``` R
+# Sets the sample frequency, in seconds. Setting this will set UseSampleFrequency to True. Requires a Sampling type to be something other than Raw.
+u$set_SampleFrequency(60)
+#UseSampleFrequency can be manually set
+u$set_UseSampleFrequency(TRUE)
+#Several sampling methods can be set Average, Resampled, Interpolated Raw, Raw and Snapshot
+u$set_SampleFrequencyType('Snapshot')
+# These can each be individually checked with the following:
+u$SampleFrequency()
+u$UseSampleFrequency()
+u$SampleFrequencyType()
+```
+
+## Reduction Frequency
+``` R
+# Sets the reduction frequency. This setting requires UseSampleFrequency to False. and requires a valid ReductionType, Defaults to 60.
+u$set_ReductionFrequency(60)
+#The reduction type can be any of the following, Defaults to None: None, Average, Delta,
+#Minimum, Maximum, StandardDeviation, RegressionSlope, RegressionCOnstant, RegressionDeviation, First, Last 
+u$set_ReductionType('None')
+#The reduction offset can be any of the following, Defaults to Around: After, Around, Before
+u$set_ReductionOffset('Around')
+# These can each be individually checked with the following:
+u$ReductionFrequency()
+u$ReductionFrequencyType()
+u$ReductionFrequencyOffset()
+```
+
+## Adding tags and getting results
+```R
+#Tags can be added either individually or as a list.
 u$add_tag('A.RL_AI7361.BATCH')
 u$add_tag('A.RL_AI7361.GRADE')
-# A tag can be removed either individually
+#same as:
+u$add_tag(c('A.RL_AI7361.BATCH', 'A.RL_AI7361.GRADE'))
+
+# The taglist can either be cleared completely or individual tags can be removed.
 u$remove_tag('A.RL_AI7361.GRADE')
 #or the entire taglist can be emptied
 u$clear_taglist()
-#Starttime default to NOW-1D, this takes either a string like NOW-1D or 
-# DD/MM/YYYY HH:mm:ss
-# This value isn't error checked currently can will cause issues with $get_results()
-# if the format isn't convertible
-u$set_startime('NOW-3W')
-#Endtime default to NOW-1D, this takes either a string like NOW-1D or 
-# DD/MM/YYYY HH:mm:ss
-#This value isn't error checked currently can will cause issues with $get_results()
-# if the format isn't convertible
-u$set_endtime('NOW-1D')
 
-#These values can be checked with
-u$startime
-u$endtime
-#Data can then be grabbed using the $get_results() method.
+#Data can then be fetched with the following
 #This returns a list of dataframes, where each dataframe is one tag
 data <- u$get_results()
+#Shows progress by tag
+> data <- u$get_results()
+[1] "Current Tag: A.RL_AI7361.BATCH   1  of  2"
+[1] "Current Tag: A.RL_AI7361.GRADE   2  of  2"
 ```
