@@ -211,8 +211,8 @@ public = list(
   
   
   #' @description
-  #' Sets the Sample Frequency Type Accepts:  Snapshot, Average, Resampled, Raw, InterpolatedRaw
-  #' @param SampleType Default value is FALSE
+  #' Sets the Sample Frequency Type Accepts:  Snapshot, Average, Resampled, Raw, InterpolatedRaw, Defaults to Raw
+  #' @param SampleType
   #' Average
   #'The value is the average from the data around the sample time. The time-weighted value for the raw samples are averaged so that the data value returned is an average for the value at the timestamp.
   #'
@@ -312,26 +312,26 @@ public = list(
   #' Sets the starttime to be passed to the results function.
   #' This takes either a date in either 'DD/MM/YYYY HH:mm:ss' or NOW-1d (d=day, w=week, y=year)
   #' @param starttime 'DD/MM/YYYY HH:mm:ss' format
-  set_startime = function(starttime){
+  set_Startime = function(starttime){
     private$m_Starttime <- starttime
   },
   #' @description
   #' Sets the Endtime to be passed to the results function 
   #' @param endtime 'DD/MM/YYYY HH:mm:ss' format
   #' This takes either a date in either 'DD/MM/YYYY HH:mm:ss' or NOW-1d (d=day, w=week, y=year)
-  set_endtime = function(endtime){
+  set_Endtime = function(endtime){
     private$m_Endtime <- endtime
   },
   #' @description
   #' See current Starttime 
   #' @param starttime
-  startime = function(){
+  Startime = function(){
     return(private$m_Starttime)
   },
   #' @description
   #' See current Endtime 
   #' @param endtime 
-  endtime = function(){
+  Endtime = function(){
     return(private$m_Endtime)
   },
   
@@ -402,15 +402,15 @@ public = list(
 #u$set_SampleFrequency(60)
 #u$set_SampleFrequencyType('Snapshot')
 #u$add_tag('A.RL_AI7361.BATCH')
-#u$add_tag(c('A.RL_AI7361.BATCH','A.RL_AI7361.GRADE','A.R_R26PRM7.V3','A.R_FQ3302P.FQ','A.R_FQ4123C.FQ'))
+#u$add_tag(c('A.R_R26PRM7.V3'))
 #u$show_taglist()
 #u$show_parameters()
 #u$remo
 #u$show_taglist()
 #u$add_tag('A.RL_AI7361.GRADE')
-#u$set_startime('NOW-10Y')
 #u$set_endtime('NOW')
 #u$startime()
+#u$set_startime('NOW-1W')
 #sand <- u$get_results()
 #print(sand)
 #sand
