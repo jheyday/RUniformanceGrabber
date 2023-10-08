@@ -35,10 +35,10 @@ example <- Uniformance$new("MALSHW1")
 \item \href{#method-Uniformance-ReductionType}{\code{Uniformance$ReductionType()}}
 \item \href{#method-Uniformance-set_ReductionOffset}{\code{Uniformance$set_ReductionOffset()}}
 \item \href{#method-Uniformance-ReductionOffset}{\code{Uniformance$ReductionOffset()}}
-\item \href{#method-Uniformance-set_startime}{\code{Uniformance$set_startime()}}
-\item \href{#method-Uniformance-set_endtime}{\code{Uniformance$set_endtime()}}
-\item \href{#method-Uniformance-startime}{\code{Uniformance$startime()}}
-\item \href{#method-Uniformance-endtime}{\code{Uniformance$endtime()}}
+\item \href{#method-Uniformance-set_Startime}{\code{Uniformance$set_Startime()}}
+\item \href{#method-Uniformance-set_Endtime}{\code{Uniformance$set_Endtime()}}
+\item \href{#method-Uniformance-Startime}{\code{Uniformance$Startime()}}
+\item \href{#method-Uniformance-Endtime}{\code{Uniformance$Endtime()}}
 \item \href{#method-Uniformance-get_results}{\code{Uniformance$get_results()}}
 \item \href{#method-Uniformance-clone}{\code{Uniformance$clone()}}
 }
@@ -85,6 +85,7 @@ Checks if tag exists on server
 \if{latex}{\out{\hypertarget{method-Uniformance-add_tag}{}}}
 \subsection{Method \code{add_tag()}}{
 Checks if tag exists on server and adds to a list of tags that will be grabbed by get_data
+returns current taglist
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Uniformance$add_tag(tag_name)}\if{html}{\out{</div>}}
 }
@@ -111,7 +112,7 @@ Shows taglist
 \if{html}{\out{<a id="method-Uniformance-clear_taglist"></a>}}
 \if{latex}{\out{\hypertarget{method-Uniformance-clear_taglist}{}}}
 \subsection{Method \code{clear_taglist()}}{
-Clears taglist
+removes all tags from taglist
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Uniformance$clear_taglist()}\if{html}{\out{</div>}}
 }
@@ -195,7 +196,7 @@ Sees the use sample frequency flag
 \if{html}{\out{<a id="method-Uniformance-set_SampleFrequencyType"></a>}}
 \if{latex}{\out{\hypertarget{method-Uniformance-set_SampleFrequencyType}{}}}
 \subsection{Method \code{set_SampleFrequencyType()}}{
-Sets the Sample Frequency Type Accepts:  Snapshot, Average, Resampled, Raw, InterpolatedRaw
+Sets the Sample Frequency Type Accepts:  Snapshot, Average, Resampled, Raw, InterpolatedRaw, Defaults to Raw
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Uniformance$set_SampleFrequencyType(SampleType)}\if{html}{\out{</div>}}
 }
@@ -203,8 +204,7 @@ Sets the Sample Frequency Type Accepts:  Snapshot, Average, Resampled, Raw, Inte
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{SampleType}}{Default value is FALSE
-Average
+\item{\code{SampleType}}{Average
 The value is the average from the data around the sample time. The time-weighted value for the raw samples are averaged so that the data value returned is an average for the value at the timestamp.
 
 Resampled
@@ -263,7 +263,7 @@ Sees the use Reduction Frequency
 \if{html}{\out{<a id="method-Uniformance-set_ReductionType"></a>}}
 \if{latex}{\out{\hypertarget{method-Uniformance-set_ReductionType}{}}}
 \subsection{Method \code{set_ReductionType()}}{
-Sets the Reduction Type Accepts:  "None", "Average", "Delta", "Minimum", "Maximum",
+Sets the Reduction Type Accepts:  Snapshot, Average, Resampled, Raw, InterpolatedRaw,
 "StandardDeviation", "RegressionSlope", "RegressionConstant",
 "RegressionDeviation","First", "Last"
 \subsection{Usage}{
@@ -318,13 +318,13 @@ Sees the Reduction Type
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Uniformance-set_startime"></a>}}
-\if{latex}{\out{\hypertarget{method-Uniformance-set_startime}{}}}
-\subsection{Method \code{set_startime()}}{
+\if{html}{\out{<a id="method-Uniformance-set_Startime"></a>}}
+\if{latex}{\out{\hypertarget{method-Uniformance-set_Startime}{}}}
+\subsection{Method \code{set_Startime()}}{
 Sets the starttime to be passed to the results function.
 This takes either a date in either 'DD/MM/YYYY HH:mm:ss' or NOW-1d (d=day, w=week, y=year)
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Uniformance$set_startime(starttime)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Uniformance$set_Startime(starttime)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -336,12 +336,12 @@ This takes either a date in either 'DD/MM/YYYY HH:mm:ss' or NOW-1d (d=day, w=wee
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Uniformance-set_endtime"></a>}}
-\if{latex}{\out{\hypertarget{method-Uniformance-set_endtime}{}}}
-\subsection{Method \code{set_endtime()}}{
+\if{html}{\out{<a id="method-Uniformance-set_Endtime"></a>}}
+\if{latex}{\out{\hypertarget{method-Uniformance-set_Endtime}{}}}
+\subsection{Method \code{set_Endtime()}}{
 Sets the Endtime to be passed to the results function
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Uniformance$set_endtime(endtime)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Uniformance$set_Endtime(endtime)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -354,22 +354,22 @@ This takes either a date in either 'DD/MM/YYYY HH:mm:ss' or NOW-1d (d=day, w=wee
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Uniformance-startime"></a>}}
-\if{latex}{\out{\hypertarget{method-Uniformance-startime}{}}}
-\subsection{Method \code{startime()}}{
+\if{html}{\out{<a id="method-Uniformance-Startime"></a>}}
+\if{latex}{\out{\hypertarget{method-Uniformance-Startime}{}}}
+\subsection{Method \code{Startime()}}{
 See current Starttime
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Uniformance$startime()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Uniformance$Startime()}\if{html}{\out{</div>}}
 }
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Uniformance-endtime"></a>}}
-\if{latex}{\out{\hypertarget{method-Uniformance-endtime}{}}}
-\subsection{Method \code{endtime()}}{
+\if{html}{\out{<a id="method-Uniformance-Endtime"></a>}}
+\if{latex}{\out{\hypertarget{method-Uniformance-Endtime}{}}}
+\subsection{Method \code{Endtime()}}{
 See current Endtime
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Uniformance$endtime()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Uniformance$Endtime()}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
